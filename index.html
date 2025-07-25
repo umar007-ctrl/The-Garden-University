@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Garden University</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body,
+        html {
+            height: 100%;
+            scroll-behavior: smooth;
+        }
+
+        /* Background Section */
+        .hero {
+            background: url('https://cdn.pixabay.com/photo/2020/11/19/08/03/college-5757815_960_720.jpg') no-repeat center center/cover;
+            height: 100vh;
+            position: relative;
+            color: white;
+        }
+
+        /* Transparent Nav */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 100;
+
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover
+        {
+            color: #00c3ff;
+            
+        }
+        nav ul li a:hover, nav ul li a.active{
+            /*text-decoration: underline;*/
+            /*color: #00c3ff;*/
+            color: #00c3ff;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Welcome Text */
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            
+            
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+         
+
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .hero-content a {
+            padding: 12px 25px;
+            background-color: #00c3ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5%;
+            
+        }
+       .hero-content a:hover{
+           background-color: darkblue;
+            transition-duration: 1s;
+        }
+        /* Review Section */
+        .reviews {
+            padding: 60px 40px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .reviews h2 {
+            margin-bottom: 40px;
+            font-size: 32px;
+            color: #333;
+        }
+
+        .review-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 15px;
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        .card h4 {
+            color: #333;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 32px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
+            }
+
+            .review-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">Garden University</div>
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="form.html">Admission Form</a></li>
+            <li><a href="about us.html">About Us</a></li>
+            <li><a href="contact us.html">Contact Us</a></li>
+            <li><a href="signup.html">Login / Sign-Up</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Gareden University</h1>
+            <p>Empowering Students to Create a Brighter Future</p>
+            <a href="form.html">Book a Toure</a>
+        </div>
+    </section>
+    
+    <!-- Reviews Section -->
+    <section class="reviews">
+        <h2>What Our Campous Say's</h2>
+        <div class="review-cards">
+            <div class="card">
+                <img src="https://www.frontiersin.org/files/Articles/1119419/fphar-14-1119419-HTML-r1/image_m/fphar-14-1119419-g0x1.jpg"
+                    alt="Student 1">
+                <p>“The professors are supportive and the campus is beautiful!”</p>
+                <h4>- prof.Muhammad Iqbal</h4>
+            </div>
+            <div class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjpPV2sQ5yFyItSaje2ReMxNLHx9Aaf05nEcSUl4YZ9S1JTFKoiZDLNh-8yIdPTY3a1NI&usqp=CAU"
+                    alt="Student 2">
+                <p>“Amazing labs, great clubs, and helpful faculty members.”</p>
+                <h4>- Irfan Siddiqe</h4>
+            </div>
+            <div class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtJXe3BgTO_lXKA25dJTQP23rjkl9doi1TX8Fc1QESPBMqgUDxmAt0hlPunxFV398EFlk&usqp=CAU"
+                    alt="Student 3">
+                <p>“A vibrant community and excellent academic environment!”</p>
+                <h4>- Dr. Anjum Halai</h4>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
