@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Schedule a Tour Garden University</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', sans-serif;
+}
+
+body, html {
+height: 100%;
+}
+
+body {
+background: url('https://cdn.pixabay.com/photo/2024/10/07/10/28/colosseum-9102592_960_720.png') no-repeat center center/cover;
+padding: 40px 20px;
+}
+
+.container {
+max-width: 1100px;
+margin: auto;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+gap: 30px;
+background-color: rgba(255,255,255,0.1);
+backdrop-filter: blur(3px);
+border-radius: 15px;
+padding: 30px;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 100;
+                margin: 0px -20px;
+
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover
+        {
+            color: #00c3ff;
+            
+        }
+        nav ul li a:hover, nav ul li a.active{
+            /*text-decoration: underline;*/
+            /*color: #00c3ff;*/
+            color: #00c3ff;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+.form-container {
+flex: 1 1 500px;
+background: rgba(255, 255, 255, 0.15);
+backdrop-filter: blur(5px);
+padding: 30px;
+border-radius: 15px;
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+
+.form-container h2 {
+text-align: center;
+color: #fff;
+margin-bottom: 25px;
+}
+
+.form-group {
+margin-bottom: 15px;
+}
+
+.form-group input,
+.form-group textarea {
+width: 100%;
+padding: 12px;
+border: none;
+border-radius: 8px;
+background: rgba(255, 255, 255, 0.9);
+font-size: 14px;
+}
+
+.form-group textarea {
+resize: vertical;
+min-height: 80px;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+color: #777;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+outline: none;
+border: 2px solid #0a0a0a;
+}
+
+button {
+width: 100%;
+padding: 14px;
+background: #00c3ff;
+color: white;
+font-weight: bold;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+transition: 0.3s;
+}
+
+button:hover {
+background: #1f83bd;
+}
+
+.timing-box {
+flex: 1 1 350px;
+background: rgba(255, 255, 255, 0.9);
+padding: 20px;
+border-radius: 15px;
+text-align: center;
+color: #333;
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.timing-box img {
+max-width: 100%;
+border-radius: 12px;
+margin-bottom: 15px;
+}
+
+.timing-box h3 {
+font-size: 20px;
+margin-bottom: 10px;
+color: #2c3e50;
+}
+
+.timing-box p {
+font-size: 16px;
+}
+
+.map-section {
+margin-top: 40px;
+text-align: center;
+}
+
+.map-section h2 {
+color: #fff;
+margin-bottom: 15px;
+}
+
+.map-container {
+width: 100%;
+max-width: 1100px;
+height: 350px;
+margin: auto;
+border-radius: 12px;
+overflow: hidden;
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+iframe {
+width: 100%;
+height: 100%;
+border: none;
+}
+
+@media (max-width: 900px) {
+.container {
+flex-direction: column;
+align-items: center;
+}
+
+.map-container {
+height: 250px;
+}
+}
+</style>
+</head>
+<body>
+        <!-- Navbar -->
+    <nav>
+        <div class="logo">Garden University</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="form.html">Admission Form</a></li>
+            <li><a href="about us.html">About Us</a></li>
+            <li><a href="contact us.html">Contact Us</a></li>
+            <li><a href="signup.html">Login / Sign-Up</a></li>
+            <li><a href="book a tour.html" class="active">Schedule Tour</a></li>
+        </ul>
+    </nav>
+
+<div class="container">
+<!-- Form Section -->
+<div class="form-container">
+<h2>Schedule a Campus Tour</h2>
+<form>
+<div class="form-group">
+<input type="text" placeholder="First Name" required>
+</div>
+<div class="form-group">
+<input type="text" placeholder="Last Name" required>
+</div>
+<div class="form-group">
+<input type="email" placeholder="Email Address" required>
+</div>
+<div class="form-group">
+<input type="text" placeholder="Zip Code" required>
+</div>
+<div class="form-group">
+<input type="tel" placeholder="Phone Number" required>
+</div>
+<div class="form-group">
+<input type="time" placeholder="Choose Visit Time" required>
+</div>
+<div class="form-group">
+<textarea placeholder="Why would you like to visit Garden University?" required></textarea>
+</div>
+<button type="submit">Submit Tour Request</button>
+</form>
+</div>
+
+<!-- Campus Timing Info -->
+<div class="timing-box">
+<img src="https://cdn.pixabay.com/photo/2015/06/25/03/53/national-taiwan-normal-university-820888_1280.jpg" alt="Campus Image">
+<h3>📅 Campus Timing</h3>
+<p>Monday – Friday<br>8:00 AM – 6:00 PM</p>
+</div>
+</div>
+
+<!-- Google Map Section -->
+<div class="map-section">
+<h2>📍 Find Us on the Map</h2>
+<div class="map-container">
+<iframe
+src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26508.34992315478!2d73.04788290231331!3d33.68442053303127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfbfb0bb55b3ef%3A0x9fce0aeb0d875548!2sIslamabad%2C%20Pakistan!5e0!3m2!1sen!2s!4v1722186725612!5m2!1sen!2s"
+allowfullscreen=""
+loading="lazy"
+referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+</div>
+</div>
+</body>
+</html>
+ 

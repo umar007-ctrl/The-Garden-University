@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>University Application Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f3f7;
+            padding-top: 100px;
+            /* Space for fixed navbar */
+            margin: 0;
+        }
+
+        .img {
+            background-image: url("https://cdn.pixabay.com/photo/2016/03/09/15/29/books-1246674_960_720.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        nav {
+            position: fixed;
+            width: 93%;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 45px;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 100;
+
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover
+        {
+            color: #00c3ff;
+            
+        }
+        nav ul li a:hover, nav ul li a.active{
+            /*text-decoration: underline;*/
+            /*color: #00c3ff;*/
+            color: #00c3ff;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .search input {
+            padding: 1px 2px;
+            border-radius: 20px;
+            border: none;
+            margin: 7px -13px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffffff;
+            padding: 20px;
+            margin: 20px 0;
+            text-shadow: 2px 0px 4px #bb8e8e;
+            text-shadow: #000;
+            text-transform: bold;
+        }
+
+        form {
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            margin: 0 auto;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #eeeff0;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #2e86de;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            margin-top: 25px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1e6ab9;
+        }
+    </style>
+</head>
+
+<body class="img">
+        <!-- Navbar -->
+    <nav>
+        <div class="logo">Garden University</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="form.html" class="active">Admission Form</a></li>
+            <li><a href="about us.html">About Us</a></li>
+            <li><a href="contact us.html">Contact Us</a></li>
+            <li><a href="signup.html">Login / Sign-Up</a></li>
+            <li><a href="book a tour.html">Schedule Tour</a></li>
+        </ul>
+    </nav>
+    <!-- HEADER -->
+    <h2>UNIVERSITY ADMISSION FORM</h2>
+
+    <!-- FORM -->
+    <form action="#" method="post">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" name="fullname" required placeholder="Your Name">
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+            <option value="">--Select Gender--</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="prefer_not">Prefer not to say</option>
+        </select>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="example@gmail.com">
+
+        <label for="phone">Contact Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="03XX-XXXXXXX" required>
+
+        <label for="program">Program</label>
+        <select id="program" name="program" required>
+            <option value="">--Select Program--</option>
+            <option value="bs_cs">BS Computer Science</option>
+            <option value="bs_se">BS Software Engineering</option>
+            <option value="bba">BBA</option>
+            <option value="mba">MBA</option>
+            <option value="ms_ds">MS Data Science</option>
+        </select>
+
+        <label for="address">Permanent Address</label>
+        <textarea id="address" name="address" placeholder="Street, City, Country"></textarea>
+
+        <label for="statement">Why do you want to join this university?</label>
+        <textarea id="statement" name="statement" required></textarea>
+
+        <input type="submit" value="Submit Application">
+    </form>
+</body>
+
+</html>
