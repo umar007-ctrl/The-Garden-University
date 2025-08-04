@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden University - Courses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a5f1a;
+            /* Deep green */
+            --secondary-color: #3a7d3a;
+            /* Medium green */
+            --accent-color: #8bc34a;
+            /* Light green */
+            --light-color: #f1f8e9;
+            --dark-color: #0d3b0d;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--text-color);
+            padding-top: 90px; /* Added to prevent content hiding behind fixed navbar */
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #1f313d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            z-index: 999;
+            animation: slideFade 1s ease forwards;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        @keyframes slideFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo-area img {
+            height: 70px;
+            width: auto;
+        }
+
+        .logo-area span {
+            color: #f89e22;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #f89e22;
+        }
+
+        .dropdown {
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown::after {
+            content: " ▼";
+            font-size: 12px;
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #1f313d;
+            padding: 10px;
+            border-radius: 4px;
+            min-width: 150px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 8px 12px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #2b4755;
+        }
+
+        .show-dropdown .dropdown::after {
+            transform: rotate(180deg);
+        }
+
+        .show-dropdown .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-toggle :hover {
+            color: #f89e22;
+            transition: color 0.3s ease;
+        }
+
+        /* Main Content */
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 5%;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            margin-right: 2rem;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            padding-left: 40px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .categories {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .categories h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #2b4755;
+        }
+
+        .categories ul {
+            list-style: none;
+        }
+
+        .categories li {
+            margin-bottom: 0.8rem;
+        }
+
+        .categories a {
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .categories a:hover {
+            color: #cf7b10;
+        }
+
+        .categories span {
+            background-color: #f89e22;
+            color: #fff;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Course Grid */
+        .course-content {
+            flex: 1;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #2b4755;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #f89e22;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 3px solid #f89e22;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-image {
+            height: 180px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .course-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+        }
+
+        .course-details {
+            padding: 1.5rem;
+        }
+
+        .course-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .course-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #1f313d;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .course-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .course-meta i {
+            margin-right: 0.3rem;
+            color: #f89e22;
+        }
+
+        .course-instructor {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .instructor-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 0.5rem;
+            background-size: cover;
+        }
+
+        .instructor-name {
+            font-size: 0.9rem;
+        }
+
+        .course-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2b4755;
+            text-align: right;
+        }
+
+        .free-badge {
+            background-color: #2b4755;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 2rem;
+            }
+
+            .course-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 120px; /* Increased for mobile */
+            }
+            
+            .university-name {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .logo-area {
+                margin-bottom: 10px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem 1rem;
+            }
+
+            .dropdown {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                box-shadow: none;
+                display: none;
+            }
+
+            .nav-links li:hover .dropdown {
+                display: block;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding-top: 150px; /* Further increased for small mobile */
+            }
+            
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: center;
+                margin: 0.3rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo-area" onclick="location.href='index.html'">
+            <img src="Red-Blue-Professional-Badge-Education-Logo.png" alt="Logo" />
+            <span>|</span>
+            <span>Garden University</span>
+        </div>
+        <ul>
+            <li class="dropdown-toggle" onclick="toggleDropdown(this)">
+                <div class="dropdown">Academic</div>
+                <div class="dropdown-content">
+                    <a href="#">Course</a>
+                    <a href="form.html">Admission Form</a>
+                </div>
+            </li>
+            <li class="dropdown-toggle" onclick="toggleDropdown(this)">
+                <div class="dropdown">Student</div>
+                <div class="dropdown-content">
+                    <a href="signup.html">Login</a>
+                </div>
+            </li>
+            <li><a href="about us.html">About Us</a></li>
+            <li><a href="contact us.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+
+            <div class="categories">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#">Admission <span>6</span></a></li>
+                    <li><a href="#">Alumni <span>11</span></a></li>
+                    <li><a href="#">Career <span>9</span></a></li>
+                    <li><a href="#">Research <span>12</span></a></li>
+                    <li><a href="#">Spotlight <span>2</span></a></li>
+                    <li><a href="#">Student life <span>5</span></a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="course-content">
+            <h1 class="page-title">Available Courses</h1>
+
+            <div class="course-grid">
+                <!-- Course Card 1 -->
+                <div class="course-card">
+                    <div class="course-image"
+                        style="background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');">
+                    </div>
+                    <div class="course-details">
+                        <div class="course-date">October 4, 2024</div>
+                        <h3 class="course-title">Environmental Science and Sustainability</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-eye"></i> 432</span>
+                            <span><i class="far fa-thumbs-up"></i> 1.2k</span>
+                            <span><i class="fas fa-star"></i> 5.0</span>
+                        </div>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"
+                                style="background-image: url('https://www.fccollege.edu.pk/wp-content/uploads/Mr.-Rohail-Shahzad.jpg');"></div>
+                            <span class="instructor-name">With Mr.Rohail Shahzad</span>
+                        </div>
+                        <div class="course-price free-badge">Free</div>
+                    </div>
+                </div>
+
+                <!-- Course Card 2 -->
+                <div class="course-card">
+                    <div class="course-image"
+                        style="background-image: url('container-4197259_1280.jpg');">
+                    </div>
+                    <div class="course-details">
+                        <div class="course-date">October 4, 2024</div>
+                        <h3 class="course-title">Economics</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-eye"></i> 432</span>
+                            <span><i class="far fa-thumbs-up"></i> 1.2k</span>
+                            <span><i class="fas fa-star"></i> 5.0</span>
+                        </div>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"
+                                style="background-image: url('https://shahzadshams.com/wp-content/uploads/2018/11/Prof_Shahzad_Shams_intro.jpg');"></div>
+                            <span class="instructor-name">With Dr. Naeem Ahmad</span>
+                        </div>
+                        <div class="course-price free-badge">Free</div>
+                    </div>
+                </div>
+
+                <!-- Course Card 3 -->
+                <div class="course-card">
+                    <div class="course-image"
+                        style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');">
+                    </div>
+                    <div class="course-details">
+                        <div class="course-date">November 15, 2024</div>
+                        <h3 class="course-title">Data Science Fundamentals</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-eye"></i> 856</span>
+                            <span><i class="far fa-thumbs-up"></i> 2.4k</span>
+                            <span><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"
+                                style="background-image: url('https://www.techjuice.pk/wp-content/uploads/2020/12/prof-e1606931426998.jpg');">
+                            </div>
+                            <span class="instructor-name">With Usama Mehmood</span>
+                        </div>
+                        <div class="course-price">$49.99</div>
+                    </div>
+                </div>
+
+                <!-- Course Card 4 -->
+                <div class="course-card">
+                    <div class="course-image"
+                        style="background-image: url('programming-1873854_1280.png');">
+                    </div>
+                    <div class="course-details">
+                        <div class="course-date">December 1, 2024</div>
+                        <h3 class="course-title">Modern Web Development</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-eye"></i> 1.2k</span>
+                            <span><i class="far fa-thumbs-up"></i> 3.5k</span>
+                            <span><i class="fas fa-star"></i> 4.8</span>
+                        </div>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"
+                                style="background-image: url('https://www.aku.edu/news/PublishingImages/Professor-Zulfiqar-A-Bhutta-web-news.jpg');"></div>
+                            <span class="instructor-name">With Naveed A. Malik</span>
+                        </div>
+                        <div class="course-price">$59.99</div>
+                    </div>
+                </div>
+
+                <!-- Course Card 5 -->
+                <div class="course-card">
+                    <div class="course-image"
+                        style="background-image: url('robot-7768527_1280.jpg');">
+                    </div>
+                    <div class="course-details">
+                        <div class="course-date">January 10, 2025</div>
+                        <h3 class="course-title">Artificial Intelligence Basics</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-eye"></i> 1.5k</span>
+                            <span><i class="far fa-thumbs-up"></i> 4.2k</span>
+                            <span><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"
+                                style="background-image: url('https://media.licdn.com/dms/image/v2/C4D22AQHw91xT13oY1g/feedshare-shrink_800/feedshare-shrink_800/0/1628412974673?e=2147483647&v=beta&t=6abdh9dPPNKhX4Szt7xiWD6DCRoyTwaSS_6qQskGkxc');"></div>
+                            <span class="instructor-name">With Saira Bano</span>
+                        </div>
+                        <div class="course-price">$79.99</div>
+                    </div>
+                </div>
+                <!-- Course Card 6 -->
+                <div class="course-card">
+                    <div class="course-image"
+                        style="background-image: url('network-2402637_1280.jpg');">
+                    </div>
+                    <div class="course-details">
+                        <div class="course-date">January 10, 2025</div>
+                        <h3 class="course-title">Cyber Security</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-eye"></i> 1.5k</span>
+                            <span><i class="far fa-thumbs-up"></i> 4.2k</span>
+                            <span><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"
+                                style="background-image: url('mcy.jpg');"></div>
+                            <span class="instructor-name">With Muhammad Fahad Khan</span>
+                        </div>
+                        <div class="course-price">$80.99</div>
+                    </div>
+                </div>
+                <!-- Course Card 7 -->
+                <div class="course-card">
+                    <div class="course-image"
+                        style="background-image: url('analysis-4402809_1280.jpg');">
+                    </div>
+                    <div class="course-details">
+                        <div class="course-date">January 10, 2025</div>
+                        <h3 class="course-title">Biotechnology</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-eye"></i> 1.5k</span>
+                            <span><i class="far fa-thumbs-up"></i> 4.2k</span>
+                            <span><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"
+                                style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHrfDxe3tCLYnzFr_yrbgHwrSKiw_j1e11tg&s');"></div>
+                            <span class="instructor-name">With Dr. Anwar Nasim</span>
+                        </div>
+                        <div class="course-price">$80.99</div>
+                    </div>
+                </div>
+                <!-- Course Card 8 -->
+                <div class="course-card">
+                    <div class="course-image"
+                        style="background-image: url('engineer-4941329_1280.jpg');">
+                    </div>
+                    <div class="course-details">
+                        <div class="course-date">January 10, 2025</div>
+                        <h3 class="course-title">Electrical engineering </h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-eye"></i> 1.5k</span>
+                            <span><i class="far fa-thumbs-up"></i> 4.2k</span>
+                            <span><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"
+                                style="background-image: url('https://pcl.edu.pk/wp-content/uploads/2016/01/aamnah_akhtar_img.jpg');"></div>
+                            <span class="instructor-name">With  Bushra Mirza</span>
+                        </div>
+                        <div class="course-price">$75.99</div>
+                    </div>
+                </div>
+                <!-- Course Card 9 -->
+                <div class="course-card">
+                    <div class="course-image"
+                        style="background-image: url('engine-71267_1280.jpg');">
+                    </div>
+                    <div class="course-details">
+                        <div class="course-date">January 10, 2025</div>
+                        <h3 class="course-title">Mechanical engineering</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-eye"></i> 1.5k</span>
+                            <span><i class="far fa-thumbs-up"></i> 4.2k</span>
+                            <span><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"
+                                style="background-image: url('female\ prof.webp');"></div>
+                            <span class="instructor-name">With Huma Khalil</span>
+                        </div>
+                        <div class="course-price">$65.99</div>
+                    </div>
+                </div>
+
+                <!-- Course Card 10 -->
+                <div class="course-card">
+                    <div class="course-image"
+                        style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');">
+                    </div>
+                    <div class="course-details">
+                        <div class="course-date">February 5, 2025</div>
+                        <h3 class="course-title">Business Management</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-eye"></i> 987</span>
+                            <span><i class="far fa-thumbs-up"></i> 2.8k</span>
+                            <span><i class="fas fa-star"></i> 4.7</span>
+                        </div>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"
+                                style="background-image: url('https://static.tossdown.com/bnu/c9618ba5-df7d-4499-9313-14395892219a.webp');">
+                            </div>
+                            <span class="instructor-name">With Dr. Asghar Qadir</span>
+                        </div>
+                        <div class="course-price">$69.99</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // JavaScript for interactive features
+        document.addEventListener('DOMContentLoaded', function () {
+            // Toggle dropdown function
+            function toggleDropdown(element) {
+                element.classList.toggle('show-dropdown');
+            }
+            
+            // Search functionality
+            const searchInput = document.querySelector('.search-box input');
+            const courseCards = document.querySelectorAll('.course-card');
+
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+
+                courseCards.forEach(card => {
+                    const title = card.querySelector('.course-title').textContent.toLowerCase();
+                    const instructor = card.querySelector('.instructor-name').textContent.toLowerCase();
+
+                    if (title.includes(searchTerm) || instructor.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            // Category filtering
+            const categoryLinks = document.querySelectorAll('.categories a');
+
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const category = this.textContent.split(' ')[0].toLowerCase();
+
+                    // Highlight selected category
+                    categoryLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // In a real implementation, you would filter courses by category
+                    // For this demo, we'll just log the selected category
+                    console.log('Selected category:', category);
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown-toggle')) {
+                    document.querySelectorAll('.dropdown-toggle').forEach(el => {
+                        el.classList.remove('show-dropdown');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
