@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Garden University</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -128,25 +129,465 @@
 
     .show-dropdown .dropdown-content {
       display: block;
+      animation: fadeIn 0.3s ease;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .dropdown-toggle :hover{
         color: #f89e22;
         transition: color 0.3s ease
     }
     
-
     /* Video Section */
     .video-section {
       margin-top: 80px; /* Space for navbar */
       width: 100%;
       height: 100vh;
       overflow: hidden;
+      position: relative;
+      transition: all 0.5s ease;
+    }
+
+    .video-section.shrink {
+      height: 0;
+      opacity: 0;
+      pointer-events: none;
     }
 
     .video-section video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Welcome Section */
+    .welcome-section {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 50px;
+      animation: fadeInUp 1s ease 0.5s forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Announcement Box */
+    .announcement-box {
+      flex: 1;
+      background-color: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-top: 5px solid #f89e22;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .announcement-box::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .announcement-box::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .announcement-box::-webkit-scrollbar-thumb {
+      background: #f89e22;
+      border-radius: 10px;
+    }
+
+    .announcement-box h2 {
+      color: #1f313d;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      position: sticky;
+      top: 0;
+      background: white;
+      padding-bottom: 10px;
+      z-index: 1;
+    }
+
+    .announcement-item {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .announcement-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .announcement-item h3 {
+      color: #f89e22;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .announcement-item p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .announcement-date {
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 5px;
+    }
+
+    /* Slideshow */
+    .slideshow-container {
+      flex: 2;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      position: relative;
+      height: 400px;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slide-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 30px;
+      background: linear-gradient(to top, rgba(31,49,61,0.9), transparent);
+      color: white;
+    }
+
+    .slide-content h3 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .slide-content p {
+      margin-bottom: 15px;
+    }
+
+    .slide-btn {
+      display: inline-block;
+      background-color: #f89e22;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .slide-btn:hover {
+      background-color: #e08b1a;
+      transform: translateY(-3px);
+    }
+
+    /* Features Section */
+    .features-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .feature-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
+    }
+
+    .feature-card:nth-child(1) { animation-delay: 0.3s; }
+    .feature-card:nth-child(2) { animation-delay: 0.6s; }
+    .feature-card:nth-child(3) { animation-delay: 0.9s; }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: #f89e22;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      color: #1f313d;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+
+    .feature-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      background-color: #1f313d;
+      padding: 60px 20px;
+      margin-bottom: 50px;
+      border-radius: 10px;
+    }
+
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+
+    .stat-item {
+      color: white;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #f89e22;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 1.2rem;
+    }
+
+    /* Testimonials */
+    .testimonials-section {
+      background-color: white;
+      padding: 50px 20px;
+      margin-bottom: 50px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-header h2 {
+      color: #1f313d;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .section-header p {
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .testimonials-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .testimonial-card {
+      background-color: #f9f9f9;
+      padding: 25px;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      font-size: 80px;
+      color: #f89e22;
+      opacity: 0.2;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      line-height: 1;
+    }
+
+    .testimonial-content {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+      font-style: italic;
+      color: #555;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 15px;
+      object-fit: cover;
+    }
+
+    .author-info h4 {
+      color: #1f313d;
+      margin-bottom: 5px;
+    }
+
+    .author-info p {
+      color: #f89e22;
+      font-size: 0.9rem;
+    }
+
+    /* Quick Links */
+    .quick-links {
+      background-color: #1f313d;
+      border-radius: 10px;
+      padding: 30px;
+      margin-bottom: 50px;
+      color: white;
+    }
+
+    .quick-links h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #f89e22;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .link-group h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    .link-group ul {
+      list-style: none;
+    }
+
+    .link-group li {
+      margin-bottom: 10px;
+    }
+
+    .link-group a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .link-group a:hover {
+      color: #f89e22;
+    }
+
+    .link-group i {
+      margin-right: 10px;
+      color: #f89e22;
+    }
+
+    /* Events Section */
+    .events-section {
+      margin-bottom: 50px;
+    }
+
+    .events-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .event-card {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .event-image {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .event-details {
+      padding: 20px;
+    }
+
+    .event-date {
+      display: inline-block;
+      background-color: #f89e22;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .event-title {
+      color: #1f313d;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .event-description {
+      color: #666;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+    }
+
+    .event-link {
+      color: #f89e22;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+
+    .event-link i {
+      margin-left: 5px;
+      transition: transform 0.3s;
+    }
+
+    .event-link:hover i {
+      transform: translateX(5px);
     }
 
     /* Footer */
@@ -184,6 +625,22 @@
       border-radius: 5px;
     }
 
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      transition: color 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #f89e22;
+    }
+
     .footer-bottom {
       text-align: center;
       margin-top: 30px;
@@ -202,6 +659,16 @@
     }
 
     /* Responsive */
+    @media (max-width: 992px) {
+      .welcome-section {
+        flex-direction: column;
+      }
+      
+      .slideshow-container {
+        height: 350px;
+      }
+    }
+
     @media (max-width: 768px) {
       nav {
         flex-direction: column;
@@ -231,6 +698,20 @@
         text-align: center;
         gap: 30px;
       }
+      
+      .slide-content h3 {
+        font-size: 1.5rem;
+      }
+
+      .stats-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -248,35 +729,278 @@
     <div class="dropdown">Academic</div>
     <div class="dropdown-content">
        <a href="course.htm">Course</a> 
-       <a href="#">Tuition & Fees</a> 
+       <a href="tuition&fees.html">Tuition & Fees</a> 
        <a href="form.html">Admission Form</a>
     </div>
     <li class="dropdown-toggle" onclick="toggleDropdown(this)">
-    <div class="dropdown">Campus</div>
+    <div class="dropdown">Campus Life</div>
     <div class="dropdown-content">
        <a href="book a tour.html">Book a Tour</a> 
-       
+       <a href="libirary.html">Library</a> 
+       <a href="#">Museum</a> 
     </div>
     <li class="dropdown-toggle" onclick="toggleDropdown(this)">
     <div class="dropdown">Student</div>
     <div class="dropdown-content">
        <a href="signup.html">Login</a> 
-       
+       <a href="signup.html">Academic Celender</a>
     </div>
-    <!--<li><a href="form.html">Admission Form</a></li>-->
     <li><a href="about us.html">About Us</a></li>
     <li><a href="contact us.html">Contact Us</a></li>
-    </li>
   </ul>
 </nav>
 
 <!-- Video Section -->
-<section class="video-section">
+<section class="video-section" id="videoSection">
   <video autoplay muted loop playsinline>
-    <source src="garden.mp4.mp4" type="video/mp4">
+    <source src="Welcome to Cambridge! - Cambridge University (1080p, h264).mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </section>
+
+<!-- Main Content -->
+<div class="main-content">
+  <!-- Welcome Section -->
+  <section class="welcome-section">
+    <!-- Announcement Box -->
+    <div class="announcement-box">
+      <h2>Announcements</h2>
+      
+      <div class="announcement-item">
+        <h3>Fall Semester Registration</h3>
+        <p>Registration for Fall 2024 is now open. Secure your spot in your preferred courses today. Visit the registrar's office or register online through the student portal.</p>
+        <div class="announcement-date">June 15, 2024</div>
+      </div>
+      
+      <div class="announcement-item">
+        <h3>Campus Tour Days</h3>
+        <p>Join us for our upcoming campus tours every Saturday this month from 10am to 2pm. Experience life at Garden University and meet with current students and faculty.</p>
+        <div class="announcement-date">June 10, 2024</div>
+      </div>
+      
+      <div class="announcement-item">
+        <h3>Scholarship Deadline</h3>
+        <p>Applications for the Chancellor's Scholarship close on July 1st. This prestigious award covers full tuition for four years. Don't miss this opportunity!</p>
+        <div class="announcement-date">June 5, 2024</div>
+      </div>
+
+      <div class="announcement-item">
+        <h3>New Research Center Opening</h3>
+        <p>The university will inaugurate the new Center for Sustainable Technologies on June 25th with a special ceremony and open house for all students.</p>
+        <div class="announcement-date">May 28, 2024</div>
+      </div>
+
+      <div class="announcement-item">
+        <h3>Summer Internship Fair</h3>
+        <p>Over 50 companies will be on campus June 20th for our annual summer internship fair. Bring your resume and dress professionally!</p>
+        <div class="announcement-date">May 22, 2024</div>
+      </div>
+    </div>
+    
+    <!-- Slideshow -->
+    <div class="slideshow-container">
+      <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="slide-content">
+          <h3>Welcome to Garden University</h3>
+          <p>Discover a world-class education in our beautiful campus environment with state-of-the-art facilities and renowned faculty.</p>
+          <a href="about us.html" class="slide-btn">Learn More</a>
+        </div>
+      </div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="slide-content">
+          <h3>Innovative Learning Spaces</h3>
+          <p>Our cutting-edge laboratories, libraries, and collaborative spaces support groundbreaking research and transformative learning.</p>
+          <a href="course.htm" class="slide-btn">Explore Programs</a>
+        </div>
+      </div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');">
+        <div class="slide-content">
+          <h3>Vibrant Campus Life</h3>
+          <p>Join our diverse community of scholars with over 100 student organizations, sports teams, and cultural activities.</p>
+          <a href="book a tour.html" class="slide-btn">Book a Tour</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <h3>Academic Excellence</h3>
+      <p>Our rigorous academic programs are designed by industry leaders to challenge and inspire students to reach their full potential with personalized mentorship.</p>
+    </div>
+    
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-flask"></i>
+      </div>
+      <h3>Research Opportunities</h3>
+      <p>Undergraduate and graduate students work alongside faculty on groundbreaking research projects with access to $15M in annual research funding.</p>
+    </div>
+    
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-globe"></i>
+      </div>
+      <h3>Global Community</h3>
+      <p>Join students from over 50 countries in a truly international learning environment with study abroad programs on six continents.</p>
+    </div>
+  </section>
+  
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-container">
+      <div class="stat-item">
+        <div class="stat-number">95%</div>
+        <div class="stat-label">Graduation Rate</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">8:1</div>
+        <div class="stat-label">Student-Faculty Ratio</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Degree Programs</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">120</div>
+        <div class="stat-label">Student Clubs</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="section-header">
+      <h2>What Our Students Say</h2>
+      <p>Hear from our students about their experiences at Garden University</p>
+    </div>
+    <div class="testimonials-container">
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          The professors at Garden University truly care about their students' success. The small class sizes allowed me to form meaningful relationships with both faculty and peers.
+        </div>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Student" class="author-avatar">
+          <div class="author-info">
+            <h4>Huma Baig</h4>
+            <p>Computer Science, 2023</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          The research opportunities here are incredible. As a sophomore, I was already working in a lab and contributing to published papers. This experience was invaluable for grad school applications.
+        </div>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Student" class="author-avatar">
+          <div class="author-info">
+            <h4>Hasnain Gul</h4>
+            <p>Biochemistry, 2022</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          The international student community at Garden U made my transition so smooth. Between the support services and the diverse campus activities, I never felt homesick.
+        </div>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Student" class="author-avatar">
+          <div class="author-info">
+            <h4>Sarah Ali</h4>
+            <p>Artificial Intelligence(AI), 2025</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <section class="events-section">
+    <div class="section-header">
+      <h2>Upcoming Events</h2>
+      <p>Join us for these exciting campus events</p>
+    </div>
+    <div class="events-container">
+      <div class="event-card">
+        <div class="event-image" style="background-image: url('Independence\ Day\ Post.jpg');"></div>
+        <div class="event-details">
+          <div class="event-date">JUNE 20, 2024</div>
+          <h3 class="event-title">14 aug Pakistan Independance Day</h3>
+          <p class="event-description">14th August is a day of pride and honor for every Pakistani. It marks the historic moment in 1947 when Pakistan gained independence and emerged as a free nation. This day reminds us of the sacrifices made by our ancestors who fought with courage and unity for a separate homeland. As we celebrate our freedom, let us renew our commitment to work together for peace, progress, and prosperity. Pakistan Zindabad!</p>
+          <a href="#" class="event-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+        <div class="event-details">
+          <div class="event-date">JUNE 25, 2024</div>
+          <h3 class="event-title">Summer Music Festival</h3>
+          <p class="event-description">Enjoy performances by student bands and special guests at our annual outdoor music festival.</p>
+          <a href="#" class="event-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+        <div class="event-details">
+          <div class="event-date">JULY 5, 2024</div>
+          <h3 class="event-title">Research Symposium</h3>
+          <p class="event-description">Showcase of undergraduate research projects with awards for outstanding presentations.</p>
+          <a href="#" class="event-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Quick Links -->
+  <section class="quick-links">
+    <h2>Quick Links</h2>
+    <div class="links-grid">
+      <div class="link-group">
+        <h3>Admissions</h3>
+        <ul>
+          <li><a href="form.html"><i class="fas fa-arrow-right"></i> Apply Now</a></li>
+          <li><a href="tuition&fees.html"><i class="fas fa-arrow-right"></i> Tuition & Fees</a></li>
+          <li><a href="#"><i class="fas fa-arrow-right"></i> Financial Aid</a></li>
+          <li><a href="book a tour.html"><i class="fas fa-arrow-right"></i> Visit Campus</a></li>
+        </ul>
+      </div>
+      
+      <div class="link-group">
+        <h3>Academics</h3>
+        <ul>
+          <li><a href="course.htm"><i class="fas fa-arrow-right"></i> Programs</a></li>
+          <li><a href="#"><i class="fas fa-arrow-right"></i> Academic Calendar</a></li>
+          <li><a href="#"><i class="fas fa-arrow-right"></i> Registrar</a></li>
+          <li><a href="#"><i class="fas fa-arrow-right"></i> Course Catalog</a></li>
+        </ul>
+      </div>
+      
+      <div class="link-group">
+        <h3>Campus Life</h3>
+        <ul>
+          <li><a href="book a tour.html"><i class="fas fa-arrow-right"></i> Campus Tours</a></li>
+          <li><a href="#"><i class="fas fa-arrow-right"></i> Housing</a></li>
+          <li><a href="#"><i class="fas fa-arrow-right"></i> Student Organizations</a></li>
+          <li><a href="#"><i class="fas fa-arrow-right"></i> Dining</a></li>
+        </ul>
+      </div>
+      
+      <div class="link-group">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-arrow-right"></i> Library</a></li>
+          <li><a href="#"><i class="fas fa-arrow-right"></i> Career Services</a></li>
+          <li><a href="contact us.html"><i class="fas fa-arrow-right"></i> Contact Us</a></li>
+          <li><a href="#"><i class="fas fa-arrow-right"></i> IT Support</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
 
 <!-- Footer -->
 <footer>
@@ -285,14 +1009,31 @@
     <div class="footer-section">
       <img src="Red-Blue-Professional-Badge-Education-Logo.png" alt="University Logo" class="footer-logo" />
       <h3>Garden University</h3>
-      <p>Garden University Campus, Sector h-11,Islamabad, Pakistan</p>
+      <p>Garden University Campus, Sector h-11, Islamabad, Pakistan</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
     </div>
 
     <!-- Contact Info -->
     <div class="footer-section">
       <h3>Contact</h3>
       <p><strong>UAN:</strong> +92-42-1234-567890</p>
+      <p><strong>Admissions:</strong> +92-42-1234-567891</p>
       <p><strong>Email:</strong> info@gardenuniversity.edu.pk</p>
+     
+    </div>
+
+    <!-- Hours -->
+    <div class="footer-section">
+      <h3>Office Hours</h3>
+      <p><strong>Monday-Friday:</strong> 8:30am - 5:00pm</p>
+      <p><strong>Saturday:</strong> 9:00am - 2:00pm</p>
+      <p><strong>Sunday:</strong> Closed</p>
     </div>
 
     <!-- Map -->
@@ -312,19 +1053,87 @@
 
   <div class="footer-bottom">
     <a href="index.html">Home</a>
-    <a href="contact us.html">Contact Us</a>
+    <a href="about us.html">About</a>
+    <a href="contact us.html">Contact</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Accessibility</a>
     <p>© 2025 Garden University. All Rights Reserved.</p>
   </div>
 </footer>
 
 <!-- Script -->
 <script>
+  // Dropdown functionality
   function toggleDropdown(el) {
-    el.classList.toggle("show-dropdown");
+    // Close all other dropdowns first
+    document.querySelectorAll('.dropdown-toggle').forEach(dropdown => {
+      if (dropdown !== el) {
+        dropdown.classList.remove('show-dropdown');
+      }
+    });
+    
+    // Toggle current dropdown
+    el.classList.toggle('show-dropdown');
   }
+  
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.dropdown-toggle')) {
+      document.querySelectorAll('.dropdown-toggle').forEach(el => {
+        el.classList.remove('show-dropdown');
+      });
+    }
+  });
+
+  // Slideshow functionality
+  const slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+  
+  function showSlide(n) {
+    slides.forEach(slide => {
+      slide.classList.remove('active');
+    });
+    currentSlide = (n + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+  }
+  
+  function nextSlide() {
+    showSlide(currentSlide + 1);
+  }
+  
+  // Change slide every 5 seconds
+  setInterval(nextSlide, 5000);
+  
+  // Video section scroll effect
+  window.addEventListener('scroll', function() {
+    const videoSection = document.getElementById('videoSection');
+    const scrollPosition = window.scrollY;
+    
+    if (scrollPosition > 100) {
+      videoSection.classList.add('shrink');
+    } else {
+      videoSection.classList.remove('shrink');
+    }
+  });
+  
+  // Animation on scroll
+  const animateElements = document.querySelectorAll('.feature-card, .welcome-section, .section-header, .testimonial-card, .event-card');
+  
+  function checkAnimation() {
+    animateElements.forEach(element => {
+      const elementPosition = element.getBoundingClientRect().top;
+      const screenPosition = window.innerHeight / 1.2;
+      
+      if (elementPosition < screenPosition) {
+        element.style.animationPlayState = 'running';
+      }
+    });
+  }
+  
+  // Run on load and scroll
+  window.addEventListener('load', checkAnimation);
+  window.addEventListener('scroll', checkAnimation);
 </script>
 
 </body>
 </html>
-
-
