@@ -2,209 +2,663 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contact Us - Guarden University</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden University - Contact Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #2b4755;
+            --secondary-color: #f89e22;
+            --light-color: #f5f7fa;
+            --dark-color: #1a3a4a;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-image: url('https://cdn.pixabay.com/photo/2024/09/21/02/13/global-business-9062781_1280.jpg');
-           /* background-size:cover;
-            background-position: center;
-            color: #fff;
-            background-repeat: no-repeat;
-            min-height: 100vh;*/
-            background-size:cover;
-            background-position: 0px 0px;
-            background-position: center;
-            background-repeat: no-repeat;
-            min-height: 85vh;
-
-           
-            
+            background-color: var(--light-color);
+            color: var(--text-color);
+            padding-top: 90px;
         }
-
-        /*.navbar {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 15px 30px;
-            
-        }*/
+        
+        /* Navbar Styles */
         nav {
             position: fixed;
-            width: 100%;
             top: 0;
+            width: 100%;
+            background: var(--primary-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 50px;
-            background-color: rgba(0, 0, 0, 0.4);
-            z-index: 100;
-
+            padding: 10px 30px;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: slideFade 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(-20px);
         }
-
+        
+        @keyframes slideFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+        
+        .logo-area img {
+            height: 70px;
+            width: auto;
+        }
+        
+        .logo-area span {
+            color: var(--secondary-color);
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
         nav ul {
             list-style: none;
             display: flex;
-            gap: 25px;
+            gap: 20px;
+            align-items: center;
         }
-
+        
+        nav ul li {
+            position: relative;
+        }
+        
         nav ul li a {
             text-decoration: none;
             color: white;
             font-size: 16px;
             transition: color 0.3s ease;
         }
-
-        nav ul li a:hover {
-            color: #00c3ff;
+        
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--secondary-color);
         }
-
-        .logo {
-            font-size: 22px;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        /*.navbar a {
-            
-            color: #fff;
-            text-decoration: none;
-            font-size: 18px;
-            
-        }*/
-        .navbar :hover
-        {
-            color: #00c3ff;
-            transition: color 0.3s ease;
-            
-        }
-        nav ul li a:hover, nav ul li a.active{
-            /*text-decoration: underline;*/
-            /*color: #00c3ff;*/
-            color: #00c3ff;
-        }
-
-        .page-title {
-            text-align: center;
-            margin: 60px 20px 20px;
-            font-size: 48px;
-            font-weight: bold;
-            text-shadow:4px 4px 7px #000;
-            color: white;
-        }
-
-        .contact-card {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            max-width: 600px;
-            margin: 30px auto;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.6);
-        }
-
-        .contact-card h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 28px;
-            color: white;
-        }
-
-        .contact-card p {
-            font-size: 17px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            color: white;
-        }
-
-        .contact-info {
-            margin-top: 20px;
-        }
-
-        .contact-info p {
-            font-size: 16px;
-            margin: 8px 0;
-        }
-
-        .contact-info span {
-            color: #f8f7f3;
-        }
-
-        .contact-form {
-            margin-top: 25px;
-        }
-
-        .contact-form input, .contact-form textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 6px;
-            font-size: 15px;
-        }
-
-        .contact-form button {
-            width: 100%;
-            padding: 12px;
-            background-color: #050505;
-            color: #f2f4f7;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
+        
+        .dropdown {
             cursor: pointer;
+            color: white;
             font-size: 16px;
+            display: flex;
+            align-items: center;
         }
-
-        .contact-form button:hover {
-            background-color: #0e0d0d;
+        
+        .dropdown::after {
+            content: " ▼";
+            font-size: 12px;
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--primary-color);
+            padding: 10px;
+            border-radius: 4px;
+            min-width: 150px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        
+        .dropdown-content a {
+            display: block;
+            padding: 8px 12px;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--dark-color);
+            color: var(--secondary-color);
+        }
+        
+        .show-dropdown .dropdown::after {
+            transform: rotate(180deg);
+        }
+        
+        .show-dropdown .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Contact Layout */
+        .contact-wrapper {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-form {
+            flex: 1;
+            animation: slideInLeft 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .contact-info {
+            flex: 1;
+            animation: slideInRight 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Contact Cards */
+        .contact-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            height: 100%;
+        }
+        
+        .contact-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-icon {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            margin-top: 0.2rem;
+        }
+        
+        .info-content h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .info-content p, 
+        .info-content a {
+            color: var(--text-color);
+            text-decoration: none;
+            line-height: 1.6;
+            transition: color 0.3s;
+        }
+        
+        .info-content a:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Social Media */
+        .social-media {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .social-media h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        /* Contact Form */
+        .form-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            height: 100%;
+        }
+        
+        .form-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(248, 158, 34, 0.2);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background-color: #e37d00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Map Section */
+        .map-section {
+            margin-bottom: 3rem;
+            animation: fadeIn 0.8s ease 0.6s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .map-container {
+            height: 400px;
+            background-color: #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .contact-wrapper {
+                flex-direction: column;
+            }
+            
+            body {
+                padding-top: 120px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .logo-area {
+                margin-bottom: 10px;
+            }
+            
+            body {
+                padding-top: 150px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+            
+            .contact-card,
+            .form-card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-     <!-- Navbar -->
+    <!-- Navbar -->
     <nav>
-        <div class="logo">Garden University</div>
+        <div class="logo-area" onclick="location.href='index.html'">
+            <img src="Red-Blue-Professional-Badge-Education-Logo.png" alt="Logo" />
+            <span>|</span>
+            <span>Garden University</span>
+        </div>
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="form.html">Admission Form</a></li>
+            <li class="dropdown-toggle">
+                <div class="dropdown">Academic</div>
+                <div class="dropdown-content">
+                    <a href="#">Course</a>
+                    <a href="form.html">Admission Form</a>
+                </div>
+            </li>
+            <li class="dropdown-toggle">
+                <div class="dropdown">Student</div>
+                <div class="dropdown-content">
+                    <a href="signup.html">Login</a>
+                </div>
+            </li>
             <li><a href="about us.html">About Us</a></li>
-            <li><a href="contact us.html" class="active">Contact us</a></li>
-            <li><a href="signup.html">Login / Sign-Up</a></li>
-            <li><a href="book a tour.html">Schedule Tour</a></li>
+            <li><a href="contact us.html" class="active">Contact Us</a></li>
         </ul>
     </nav>
 
-    <div class="page-title">Contact Us</div>
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-title">Contact Us</h1>
+            <p class="page-subtitle">We'd love to hear from you! Reach out to our team for any questions or inquiries about Garden University.</p>
+        </header>
 
-    <div class="contact-card">
-        <h2>Guarden University</h2>
+        <div class="contact-wrapper">
+            <div class="contact-form">
+                <div class="form-card">
+                    <h3>Send Us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="admissions">Admissions Inquiry</option>
+                                <option value="financial-aid">Financial Aid</option>
+                                <option value="academics">Academic Programs</option>
+                                <option value="student-life">Student Life</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
 
-        <p><strong>About Guarden University:</strong></p>
-        <p>
-            Guarden University is a leading institution dedicated to shaping the future of students through innovation, research, and academic excellence. 
-            Our campus fosters creativity, leadership, and community growth — preparing students for impactful careers worldwide.
-        </p>
-
-        <div class="contact-info">
-            <p><span> 📞 Phone:</span> +92 300 1234567</p>
-            <p><span>📧 Email:</span> guardenuniversity@gmail.com</p>
-            <p><span>🐦 Twitter:</span> @GuardenUni</p>
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h3>Contact Information</h3>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="info-content">
+                            <h4>Address</h4>
+                            <p>Garden University Campus, Sector h-11,Islamabad, Pakistan</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="info-content">
+                            <h4>Phone</h4>
+                            <p><a href="tel:+15551234567">051-3388112</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="info-content">
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@gardenuniv.edu">TheGardenUniversity@gardenuniv.edu</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-clock"></i></div>
+                        <div class="info-content">
+                            <h4>Office Hours</h4>
+                            <p>Monday - Friday: 8:30 AM - 5:00 PM</p>
+                            <p>Saturday: 9:00 AM - 1:00 PM</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-media">
+                        <h4>Follow Us</h4>
+                        <div class="social-icons">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Optional Contact Form -->
-        <div class="contact-form">
-            <form>
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea rows="4" placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
+        <div class="map-section">
+            <h3 class="section-title">Our Location</h3>
+            <div class="map-container">
+                <!-- Google Maps Embed Code would go here -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13284.715670028278!2d72.99993663762321!3d33.65252565914841!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df95e99efaafcd%3A0x88bb2f3f1fec4171!2sH-11%2C%20Islamabad%2C%20Pakistan!5e0!3m2!1sen!2s!4v1754301265164!5m2!1sen!2s"
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"></iframe>
+            </div>
         </div>
-
     </div>
 
+    <script>
+        // JavaScript for interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dropdown functionality
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    // Close all other dropdowns
+                    document.querySelectorAll('.dropdown-toggle').forEach(el => {
+                        if (el !== this) {
+                            el.classList.remove('show-dropdown');
+                        }
+                    });
+                    // Toggle current dropdown
+                    this.classList.toggle('show-dropdown');
+                });
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function() {
+                dropdownToggles.forEach(toggle => {
+                    toggle.classList.remove('show-dropdown');
+                });
+            });
+            
+            // Form submission
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Here you would typically send the form data to a server
+                    alert('Thank you for your message! We will get back to you soon.');
+                    this.reset();
+                });
+            }
+            
+            // Initialize animations
+            const animateElements = document.querySelectorAll('.contact-form, .contact-info, .map-section');
+            
+            function checkAnimation() {
+                animateElements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.style.animationPlayState = 'running';
+                    }
+                });
+            }
+            
+            // Run on load and scroll
+            window.addEventListener('load', checkAnimation);
+            window.addEventListener('scroll', checkAnimation);
+        });
+    </script>
 </body>
 </html>
