@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden University - How to Apply</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2b4755;
+            --secondary-color: #f89e22;
+            --light-color: #f5f7fa;
+            --dark-color: #1a3a4a;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            padding-top: 90px;
+        }
+        
+        /* Navbar Styles */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: slideFade 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        
+        @keyframes slideFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+        
+        .logo-area img {
+            height: 70px;
+            width: auto;
+        }
+        
+        .logo-area span {
+            color: var(--secondary-color);
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        nav ul li {
+            position: relative;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--secondary-color);
+        }
+        
+        .dropdown {
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown::after {
+            content: " ▼";
+            font-size: 12px;
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--primary-color);
+            padding: 10px;
+            border-radius: 4px;
+            min-width: 150px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        
+        .dropdown-content a {
+            display: block;
+            padding: 8px 12px;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--dark-color);
+            color: var(--secondary-color);
+        }
+        
+        .show-dropdown .dropdown::after {
+            transform: rotate(180deg);
+        }
+        
+        .show-dropdown .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Application Steps */
+        .application-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .step {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease forwards;
+            opacity: 0;
+        }
+        
+        .step:nth-child(1) { animation-delay: 0.2s; }
+        .step:nth-child(2) { animation-delay: 0.4s; }
+        .step:nth-child(3) { animation-delay: 0.6s; }
+        .step:nth-child(4) { animation-delay: 0.8s; }
+        
+        .step-number {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: var(--secondary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-bottom-right-radius: 8px;
+        }
+        
+        .step-content {
+            padding-left: 60px;
+        }
+        
+        .step-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .step-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .step-list {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .step-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Requirements Section */
+        .requirements {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            animation: fadeIn 0.8s ease 1s forwards;
+            opacity: 0;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .requirement-card {
+            background-color: var(--light-color);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .requirement-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 3rem 0;
+            animation: fadeIn 0.8s ease 1.2s forwards;
+            opacity: 0;
+        }
+        
+        .cta-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta-button:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            body {
+                padding-top: 120px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .logo-area {
+                margin-bottom: 10px;
+            }
+            
+            body {
+                padding-top: 150px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .step-content {
+                padding-left: 0;
+                padding-top: 60px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo-area" onclick="location.href='index.html'">
+            <img src="Red-Blue-Professional-Badge-Education-Logo.png" alt="Logo" />
+            <span>|</span>
+            <span>Garden University</span>
+        </div>
+        <ul>
+            <li class="dropdown-toggle" onclick="toggleDropdown(this)">
+                <div class="dropdown">Academic</div>
+                <div class="dropdown-content">
+                    <a href="#">Course</a>
+                    <a href="form.html">Admission Form</a>
+                </div>
+            </li>
+            <li class="dropdown-toggle" onclick="toggleDropdown(this)">
+                <div class="dropdown">Student</div>
+                <div class="dropdown-content">
+                    <a href="signup.html">Login</a>
+                </div>
+            </li>
+            <li><a href="about us.html">About Us</a></li>
+            <li><a href="contact us.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-title">How to Apply</h1>
+            <p class="page-subtitle">Follow these simple steps to begin your journey at Garden University. We're here to guide you through every step of the application process.</p>
+        </header>
+
+        <div class="application-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h2 class="step-title">Explore Our Programs</h2>
+                    <p class="step-description">Discover the perfect program that aligns with your academic and career goals.</p>
+                    <ul class="step-list">
+                        <li>Browse our undergraduate and graduate programs</li>
+                        <li>Attend an information session or open house</li>
+                        <li>Connect with an admissions counselor</li>
+                    </ul>
+                    <p>Take your time to research and find the program that's right for you.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h2 class="step-title">Check Requirements</h2>
+                    <p class="step-description">Ensure you meet all the necessary requirements for your chosen program.</p>
+                    <ul class="step-list">
+                        <li>Review academic prerequisites</li>
+                        <li>Check application deadlines</li>
+                        <li>Note any standardized test requirements</li>
+                        <li>Understand English language proficiency requirements (if applicable)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h2 class="step-title">Prepare Your Documents</h2>
+                    <p class="step-description">Gather all required documents to complete your application.</p>
+                    <ul class="step-list">
+                        <li>Official transcripts from all institutions attended</li>
+                        <li>Letters of recommendation (typically 2-3)</li>
+                        <li>Personal statement or essay</li>
+                        <li>Resume or CV (for graduate programs)</li>
+                        <li>Test scores (if required)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h2 class="step-title">Submit Your Application</h2>
+                    <p class="step-description">Complete and submit your application through our online portal.</p>
+                    <ul class="step-list">
+                        <li>Create an account in our application system</li>
+                        <li>Complete all sections of the application form</li>
+                        <li>Upload required documents</li>
+                        <li>Pay the application fee or request a waiver</li>
+                        <li>Submit your application before the deadline</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="requirements">
+            <h2 class="section-title">Application Requirements</h2>
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <h3 class="requirement-title">Undergraduate Applicants</h3>
+                    <ul>
+                        <li>High school diploma or equivalent</li>
+                        <li>Minimum GPA of 2.5 (varies by program)</li>
+                        <li>Official high school transcripts</li>
+                        <li>SAT/ACT scores (optional for most programs)</li>
+                        <li>Personal statement (500-750 words)</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h3 class="requirement-title">Graduate Applicants</h3>
+                    <ul>
+                        <li>Bachelor's degree from accredited institution</li>
+                        <li>Minimum GPA of 3.0 (varies by program)</li>
+                        <li>Official college transcripts</li>
+                        <li>Letters of recommendation (2-3)</li>
+                        <li>Statement of purpose</li>
+                        <li>Resume/CV</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h3 class="requirement-title">International Applicants</h3>
+                    <ul>
+                        <li>All standard requirements plus:</li>
+                        <li>TOEFL/IELTS scores (if applicable)</li>
+                        <li>Credential evaluation (for non-U.S. transcripts)</li>
+                        <li>Financial documentation</li>
+                        <li>Copy of passport</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2 class="cta-title">Ready to Begin Your Journey?</h2>
+            <p class="cta-description">Start your application today and take the first step toward your future at Garden University.</p>
+            <a href="form.html" class="cta-button">Access Admission Form</a>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle dropdown function
+            function toggleDropdown(element) {
+                element.classList.toggle('show-dropdown');
+            }
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown-toggle')) {
+                    document.querySelectorAll('.dropdown-toggle').forEach(el => {
+                        el.classList.remove('show-dropdown');
+                    });
+                }
+            });
+            
+            // Initialize animations
+            const animateElements = document.querySelectorAll('.step, .requirements, .cta-section');
+            
+            function checkAnimation() {
+                animateElements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.style.animationPlayState = 'running';
+                    }
+                });
+            }
+            
+            // Run on load and scroll
+            window.addEventListener('load', checkAnimation);
+            window.addEventListener('scroll', checkAnimation);
+        });
+    </script>
+</body>
+</html>

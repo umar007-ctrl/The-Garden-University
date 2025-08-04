@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Housing Application | Garden University</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+      background-color: #f4f4f4;
+    }
+
+    /* Navbar - Same as index */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #1f313d;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      z-index: 999;
+      animation: slideFade 1s ease forwards;
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    @keyframes slideFade {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      cursor: pointer;
+    }
+
+    .logo-area img {
+      height: 70px;
+      width: auto;
+    }
+
+    .logo-area span {
+      color: #f89e22;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: #f89e22;
+    }
+
+    /* Dropdown Icon - Same as index */
+    .dropdown {
+      cursor: pointer;
+      color: white;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .dropdown::after {
+      content: " ▼";
+      font-size: 12px;
+      margin-left: 5px;
+      transition: transform 0.3s;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #1f313d;
+      padding: 10px;
+      border-radius: 4px;
+      min-width: 150px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 8px 12px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #2b4755;
+    }
+
+    .show-dropdown .dropdown::after {
+      transform: rotate(180deg);
+    }
+
+    .show-dropdown .dropdown-content {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown-toggle :hover{
+        color: #f89e22;
+        transition: color 0.3s ease
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 1200px;
+      margin: 80px auto 40px;
+      padding: 40px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    /* Form Section */
+    .form-section {
+      flex: 1;
+      min-width: 300px;
+      animation: slideInLeft 1s ease;
+    }
+
+    .form-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-top: 5px solid #f89e22;
+      transition: all 0.3s ease;
+    }
+
+    .form-container:hover {
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      transform: translateY(-5px);
+    }
+
+    .form-header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .form-header h2 {
+      color: #1f313d;
+      margin-bottom: 10px;
+      font-size: 2rem;
+    }
+
+    .form-header p {
+      color: #666;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #1f313d;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #f89e22;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(248, 158, 34, 0.2);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .form-footer {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .submit-btn {
+      background-color: #f89e22;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #e08b1a;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Slideshow Section */
+    .slideshow-section {
+      flex: 1;
+      min-width: 300px;
+      animation: slideInRight 1s ease;
+    }
+
+    .slideshow-container {
+      position: relative;
+      height: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slide-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 30px;
+      background: linear-gradient(to top, rgba(31,49,61,0.9), transparent);
+      color: white;
+    }
+
+    .slide-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .slide-content p {
+      font-size: 0.9rem;
+    }
+
+    /* Dots Navigation */
+    .dots-container {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background-color: #f89e22;
+      transform: scale(1.2);
+    }
+
+    /* Keyframes */
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Footer - Same as index */
+    footer {
+      background-color: #1f313d;
+      color: white;
+      padding: 40px 20px 20px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+      margin-bottom: 20px;
+    }
+
+    .footer-section h3 {
+      color: #f89e22;
+      margin-bottom: 10px;
+    }
+
+    .footer-logo {
+      height: 70px;
+      margin-bottom: 10px;
+    }
+
+    iframe {
+      border-radius: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      transition: color 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #f89e22;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 15px;
+    }
+
+    .footer-bottom a {
+      color: white;
+      margin-right: 15px;
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover {
+      color: #f89e22;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        background: #1f313d;
+        padding: 10px 0;
+      }
+
+      nav ul li {
+        padding: 10px 20px;
+      }
+
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+        padding-left: 20px;
+      }
+
+      .main-content {
+        flex-direction: column;
+      }
+
+      .slideshow-container {
+        height: 400px;
+      }
+
+      .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar - Same as index -->
+<nav>
+  <div class="logo-area" onclick="location.href='index.html'">
+    <img src="Red-Blue-Professional-Badge-Education-Logo.png" alt="Logo" />
+    <span>|</span>
+    <span>Garden University</span>
+  </div>
+  <ul>
+    <li class="dropdown-toggle" onclick="toggleDropdown(this)">
+    <div class="dropdown">Academic</div>
+    <div class="dropdown-content">
+       <a href="course.htm">Course</a> 
+       <a href="tuition&fees.html">Tuition & Fees</a> 
+       <a href="form.html">Admission Form</a>
+    </div>
+    <li class="dropdown-toggle" onclick="toggleDropdown(this)">
+    <div class="dropdown">Campus</div>
+    <div class="dropdown-content">
+       <a href="book a tour.html">Book a Tour</a> 
+       <a href="#">Library</a> 
+       <a href="#">Museum</a> 
+    </div>
+    <li class="dropdown-toggle" onclick="toggleDropdown(this)">
+    <div class="dropdown">Student</div>
+    <div class="dropdown-content">
+       <a href="signup.html">Login</a> 
+    </div>
+    <li><a href="about us.html">About Us</a></li>
+    <li><a href="contact us.html">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- Main Content -->
+<div class="main-content">
+  <!-- Form Section -->
+  <section class="form-section">
+    <div class="form-container">
+      <div class="form-header">
+        <h2>Housing Application</h2>
+        <p>Fill out this form to apply for university housing</p>
+      </div>
+      
+      <form id="housingForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="studentId">Student ID</label>
+          <input type="text" id="studentId" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" required>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="semester">Preferred Semester</label>
+            <select id="semester" required>
+              <option value="">Select Semester</option>
+              <option value="fall2024">Fall 2024</option>
+              <option value="spring2025">Spring 2025</option>
+              <option value="summer2025">Summer 2025</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="housingType">Housing Type</label>
+            <select id="housingType" required>
+              <option value="">Select Housing Type</option>
+              <option value="residence-hall">Residence Hall</option>
+              <option value="apartment-style">Apartment Style</option>
+              <option value="single-suite">Single Suite</option>
+              <option value="graduate">Graduate Housing</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="roommate">Roommate Preference (if any)</label>
+          <input type="text" id="roommate" placeholder="Student ID of preferred roommate">
+        </div>
+        
+        <div class="form-group">
+          <label for="specialNeeds">Special Needs/Requests</label>
+          <textarea id="specialNeeds" rows="3"></textarea>
+        </div>
+        
+        <div class="form-footer">
+          <button type="submit" class="submit-btn">Submit Application</button>
+        </div>
+      </form>
+    </div>
+  </section>
+  
+  <!-- Slideshow Section -->
+  <section class="slideshow-section">
+    <div class="slideshow-container">
+      <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="slide-content">
+          <h3>Residence Halls</h3>
+          <p>Traditional dormitory-style living with community amenities</p>
+        </div>
+      </div>
+      
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="slide-content">
+          <h3>Apartment Style</h3>
+          <p>Private bedrooms with shared living spaces</p>
+        </div>
+      </div>
+      
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1554469384-e58fac16e23a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1347&q=80');">
+        <div class="slide-content">
+          <h3>Single Suites</h3>
+          <p>Private rooms with ensuite bathrooms</p>
+        </div>
+      </div>
+      
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1349&q=80');">
+        <div class="slide-content">
+          <h3>Graduate Housing</h3>
+          <p>Studio and one-bedroom apartments for graduate students</p>
+        </div>
+      </div>
+      
+      <!-- Dots Navigation -->
+      <div class="dots-container">
+        <div class="dot active" data-slide="0"></div>
+        <div class="dot" data-slide="1"></div>
+        <div class="dot" data-slide="2"></div>
+        <div class="dot" data-slide="3"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Footer - Same as index -->
+<footer>
+  <div class="footer-container">
+    <!-- University Info -->
+    <div class="footer-section">
+      <img src="Red-Blue-Professional-Badge-Education-Logo.png" alt="University Logo" class="footer-logo" />
+      <h3>Garden University</h3>
+      <p>Garden University Campus, Sector h-11, Islamabad, Pakistan</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="footer-section">
+      <h3>Contact</h3>
+      <p><strong>UAN:</strong> +92-42-1234-567890</p>
+      <p><strong>Admissions:</strong> +92-42-1234-567891</p>
+      <p><strong>Email:</strong> info@gardenuniversity.edu.pk</p>
+      <p><strong>Emergency:</strong> 911 (on campus)</p>
+    </div>
+
+    <!-- Hours -->
+    <div class="footer-section">
+      <h3>Office Hours</h3>
+      <p><strong>Monday-Friday:</strong> 8:30am - 5:00pm</p>
+      <p><strong>Saturday:</strong> 9:00am - 2:00pm</p>
+      <p><strong>Sunday:</strong> Closed</p>
+    </div>
+
+    <!-- Map -->
+    <div class="footer-section">
+      <h3>Location Map</h3>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.6783280584425!2d72.99046341448773!3d33.643300349173215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df95757f6ef95d%3A0x4634f7740f63061b!2sNational%20University%20of%20Sciences%20and%20Technology%20(NUST)!5e0!3m2!1sen!2s!4v1722335047412" 
+        width="100%" 
+        height="200" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <a href="index.html">Home</a>
+    <a href="about us.html">About</a>
+    <a href="contact us.html">Contact</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Accessibility</a>
+    <p>© 2025 Garden University. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- Script -->
+<script>
+  // Dropdown functionality - Same as index
+  function toggleDropdown(el) {
+    // Close all other dropdowns first
+    document.querySelectorAll('.dropdown-toggle').forEach(dropdown => {
+      if (dropdown !== el) {
+        dropdown.classList.remove('show-dropdown');
+      }
+    });
+    
+    // Toggle current dropdown
+    el.classList.toggle('show-dropdown');
+  }
+  
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.dropdown-toggle')) {
+      document.querySelectorAll('.dropdown-toggle').forEach(el => {
+        el.classList.remove('show-dropdown');
+      });
+    }
+  });
+
+  // Slideshow functionality
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  let currentSlide = 0;
+  let slideInterval;
+  
+  function showSlide(n) {
+    slides.forEach(slide => {
+      slide.classList.remove('active');
+    });
+    dots.forEach(dot => {
+      dot.classList.remove('active');
+    });
+    
+    currentSlide = (n + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+  }
+  
+  function nextSlide() {
+    showSlide(currentSlide + 1);
+  }
+  
+  function startSlideShow() {
+    slideInterval = setInterval(nextSlide, 5000);
+  }
+  
+  function stopSlideShow() {
+    clearInterval(slideInterval);
+  }
+  
+  // Click on dots to navigate
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      stopSlideShow();
+      showSlide(index);
+      startSlideShow();
+    });
+  });
+  
+  // Start slideshow
+  startSlideShow();
+  
+  // Pause on hover
+  const slideshowContainer = document.querySelector('.slideshow-container');
+  slideshowContainer.addEventListener('mouseenter', stopSlideShow);
+  slideshowContainer.addEventListener('mouseleave', startSlideShow);
+  
+  // Form submission
+  const housingForm = document.getElementById('housingForm');
+  housingForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Thank you for your housing application! We will review your information and contact you soon.');
+    this.reset();
+  });
+</script>
+
+</body>
+</html>

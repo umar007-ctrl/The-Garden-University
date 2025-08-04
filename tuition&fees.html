@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden University - Tuition & Fees</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2b4755;
+            --secondary-color: #f89e22;
+            --light-color: #f5f7fa;
+            --dark-color: #1a3a4a;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            padding-top: 90px;
+        }
+        
+        /* Navbar Styles */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: slideFade 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        
+        @keyframes slideFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+        
+        .logo-area img {
+            height: 70px;
+            width: auto;
+        }
+        
+        .logo-area span {
+            color: var(--secondary-color);
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        nav ul li {
+            position: relative;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--secondary-color);
+        }
+        
+        .dropdown {
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown::after {
+            content: " ▼";
+            font-size: 12px;
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--primary-color);
+            padding: 10px;
+            border-radius: 4px;
+            min-width: 150px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        
+        .dropdown-content a {
+            display: block;
+            padding: 8px 12px;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--dark-color);
+            color: var(--secondary-color);
+        }
+        
+        .show-dropdown .dropdown::after {
+            transform: rotate(180deg);
+        }
+        
+        .show-dropdown .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Content Layout */
+        .content-wrapper {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .main-content {
+            flex: 2;
+            animation: fadeIn 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .sidebar {
+            flex: 1;
+            animation: fadeIn 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+        
+        /* Tuition Tables */
+        .tuition-section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .tuition-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .tuition-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .tuition-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tuition-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .tuition-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .highlight {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        /* Quick Links */
+        .quick-links {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .quick-links h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .quick-links ul {
+            list-style: none;
+        }
+        
+        .quick-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .quick-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .quick-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .quick-links i {
+            margin-right: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        /* Contact Card */
+        .contact-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .contact-info {
+            margin-bottom: 1rem;
+        }
+        
+        .contact-info p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info i {
+            margin-right: 0.5rem;
+            color: var(--secondary-color);
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            
+            body {
+                padding-top: 120px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .logo-area {
+                margin-bottom: 10px;
+            }
+            
+            body {
+                padding-top: 150px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+        }
+        
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo-area" onclick="location.href='index.html'">
+            <img src="Red-Blue-Professional-Badge-Education-Logo.png" alt="Logo" />
+            <span>|</span>
+            <span>Garden University</span>
+        </div>
+        <ul>
+            <li class="dropdown-toggle" onclick="toggleDropdown(this)">
+                <div class="dropdown">Academic</div>
+                <div class="dropdown-content">
+                    <a href="#">Course</a>
+                    <a href="form.html">Admission Form</a>
+                </div>
+            </li>
+            <li class="dropdown-toggle" onclick="toggleDropdown(this)">
+                <div class="dropdown">Student</div>
+                <div class="dropdown-content">
+                    <a href="signup.html">Login</a>
+                </div>
+            </li>
+            <li><a href="about us.html">About Us</a></li>
+            <li><a href="contact us.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-title">Tuition & Fees</h1>
+            <p class="page-subtitle">Garden University is committed to providing exceptional value and transparency in our tuition structure. Below you'll find detailed information about our costs and financial options.</p>
+        </header>
+
+        <div class="content-wrapper">
+            <main class="main-content">
+                <section class="tuition-section animate-on-scroll">
+                    <h2 class="section-title">Undergraduate Programs</h2>
+                    <table class="tuition-table">
+                        <thead>
+                            <tr>
+                                <th>Program</th>
+                                <th>Per Credit</th>
+                                <th>Full Semester (12-18 credits)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Environmental Science and Sustainability</td>
+                                <td>$450</td>
+                                <td>$5,400</td>
+                            </tr>
+                            <tr>
+                                <td>Economics</td>
+                                <td>$475</td>
+                                <td>$5,700</td>
+                            </tr>
+                            <tr>
+                                <td>Data Science Fundamentals</td>
+                                <td>$425</td>
+                                <td>$5,100</td>
+                            </tr>
+                            <tr>
+                                <td>Modern Web Development</td>
+                                <td>$500</td>
+                                <td>$6,000</td>
+                            </tr>
+                            <tr>
+                                <td>Artificial Intelligence Basics</td>
+                                <td>$550</td>
+                                <td>$6,600</td>
+                            </tr>
+                            <tr>
+                                <td>Cyber Security</td>
+                                <td>$550</td>
+                                <td>$6,600</td>
+                            </tr>
+                            <tr>
+                                <td>Biotechnology</td>
+                                <td>$550</td>
+                                <td>$6,600</td>
+                            </tr>
+                            <tr>
+                                <td>Electrical engineering</td>
+                                <td>$550</td>
+                                <td>$6,600</td>
+                            </tr>
+                            <tr>
+                                <td>Mechanical engineering</td>
+                                <td>$550</td>
+                                <td>$6,600</td>
+                            </tr>
+                            <tr>
+                                <td>Business Management</td>
+                                <td>$550</td>
+                                <td>$6,600</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="tuition-section animate-on-scroll">
+                    <h2 class="section-title">Graduate Programs</h2>
+                    <table class="tuition-table">
+                        <thead>
+                            <tr>
+                                <th>Program</th>
+                                <th>Per Credit</th>
+                                <th>Full Semester (9-12 credits)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MBA</td>
+                                <td>$650</td>
+                                <td>$5,850</td>
+                            </tr>
+                            <tr>
+                                <td>MS in Computer Science</td>
+                                <td>$700</td>
+                                <td>$6,300</td>
+                            </tr>
+                            <tr>
+                                <td>MA in Education</td>
+                                <td>$600</td>
+                                <td>$5,400</td>
+                            </tr>
+                            <tr>
+                                <td>MS in Environmental Science</td>
+                                <td>$675</td>
+                                <td>$6,075</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="tuition-section animate-on-scroll">
+                    <h2 class="section-title">Additional Fees</h2>
+                    <table class="tuition-table">
+                        <thead>
+                            <tr>
+                                <th>Fee Type</th>
+                                <th>Amount</th>
+                                <th>Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Registration Fee</td>
+                                <td>$150</td>
+                                <td>Per semester</td>
+                            </tr>
+                            <tr>
+                                <td>Technology Fee</td>
+                                <td>$100</td>
+                                <td>Per semester</td>
+                            </tr>
+                            <tr>
+                                <td>Student Activity Fee</td>
+                                <td>$75</td>
+                                <td>Per semester</td>
+                            </tr>
+                            <tr>
+                                <td>Lab Fees (Science courses)</td>
+                                <td>$50-$200</td>
+                                <td>Per course</td>
+                            </tr>
+                            <tr>
+                                <td>Graduation Fee</td>
+                                <td>$250</td>
+                                <td>One time</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="animate-on-scroll">
+                    <h2 class="section-title">Financial Aid Options</h2>
+                    <div class="quick-links">
+                        <p>Garden University offers various financial aid options to help make your education affordable:</p>
+                        <ul style="margin-top: 1rem;">
+                            <li><i class="fas fa-check-circle"></i> Merit-based scholarships</li>
+                            <li><i class="fas fa-check-circle"></i> Need-based grants</li>
+                            <li><i class="fas fa-check-circle"></i> Federal and private loans</li>
+                            <li><i class="fas fa-check-circle"></i> Work-study programs</li>
+                            <li><i class="fas fa-check-circle"></i> Payment plans</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">For more information, please visit our <a href="#" style="color: var(--secondary-color);">Financial Aid</a> page or contact our financial aid office.</p>
+                    </div>
+                </section>
+            </main>
+
+            <aside class="sidebar">
+                <div class="quick-links animate-on-scroll">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about us.html"><i class="fas fa-book-open"></i> Overview</a></li>
+                        <li><a href="how to apply.html"><i class="fas fa-edit"></i> How to Apply</a></li>
+                        <li><a href="#"><i class="fas fa-hand-holding-usd"></i> Financial Aid</a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Dates & Deadlines</a></li>
+                        <li><a href="book a tour.html"><i class="fas fa-map-marked-alt"></i> Schedule a Tour</a></li>
+                        <li><a href="#"><i class="fas fa-exchange-alt"></i> Transfer</a></li>
+                    </ul>
+                </div>
+
+                <div class="contact-card animate-on-scroll">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone-alt"></i> (555) 123-4567</p>
+                        <p><i class="fas fa-envelope"></i> financialaid@gardenuniv.edu</p>
+                        <p><i class="fas fa-map-marker-alt"></i>Garden University Campus, Sector h-11,Islamabad, Pakistan</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 9am-6pm</p>
+                    </div>
+                    <a href="contact us.html" style="display: inline-block; background-color: var(--secondary-color); color: white; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none; margin-top: 0.5rem;">Contact Form</a>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle dropdown function
+            function toggleDropdown(element) {
+                element.classList.toggle('show-dropdown');
+            }
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown-toggle')) {
+                    document.querySelectorAll('.dropdown-toggle').forEach(el => {
+                        el.classList.remove('show-dropdown');
+                    });
+                }
+            });
+            
+            // Scroll animation
+            function animateOnScroll() {
+                const elements = document.querySelectorAll('.animate-on-scroll');
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.classList.add('animated');
+                    }
+                });
+            }
+            
+            // Initialize animations
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+        });
+    </script>
+</body>
+</html>
