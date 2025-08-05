@@ -220,6 +220,66 @@
             }
         }
 
+        .calendar-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .month-year-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .month-year-selector select {
+            padding: 0.8rem 1.2rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .month-year-selector select:hover {
+            border-color: #f89e22;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .calendar-nav button {
+            padding: 0.8rem 1.5rem;
+            background-color: #2b4755;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .calendar-nav button:hover {
+            background-color: #f89e22;
+            transform: translateY(-2px);
+        }
+
+        .calendar-nav button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .current-month-btn {
+            background-color: #f89e22 !important;
+        }
+
         .calendar-view {
             background-color: white;
             border-radius: 10px;
@@ -291,6 +351,7 @@
             border: 1px solid #eee;
             border-radius: 4px;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .calendar-day:hover {
@@ -312,6 +373,7 @@
             border-radius: 3px;
             background-color: #f1f8e9;
             border-left: 3px solid #8bc34a;
+            cursor: pointer;
         }
 
         .important-event {
@@ -324,9 +386,77 @@
             border-left: 3px solid #2ecc71;
         }
 
+        .exam-event {
+            background-color: #e3f2fd;
+            border-left: 3px solid #2196f3;
+        }
+
         .empty-day {
             background-color: #f9f9f9;
             border: 1px dashed #ddd;
+        }
+
+        .today {
+            background-color: #fff8e1;
+            border: 2px solid #ffc107;
+        }
+
+        .event-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2b4755;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            width: max-content;
+            max-width: 200px;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+        }
+
+        .event-item:hover .event-tooltip {
+            display: block;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+
+        .legend-important {
+            background-color: #e74c3c;
+        }
+
+        .legend-holiday {
+            background-color: #2ecc71;
+        }
+
+        .legend-exam {
+            background-color: #2196f3;
+        }
+
+        .legend-regular {
+            background-color: #8bc34a;
         }
 
         /* Footer */
@@ -420,6 +550,16 @@
             nav ul {
                 gap: 20px;
             }
+
+            .calendar-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .month-year-selector {
+                justify-content: space-between;
+                width: 100%;
+            }
         }
 
         @media (max-width: 576px) {
@@ -444,7 +584,7 @@
                 display: none;
             }
             
-            .important-event, .holiday-event {
+            .important-event, .holiday-event, .exam-event {
                 display: block;
                 font-size: 0.6rem;
             }
@@ -455,6 +595,15 @@
             
             nav ul {
                 gap: 15px;
+            }
+
+            .calendar-nav button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .month-year-selector select {
+                padding: 0.6rem;
             }
         }
     </style>
@@ -495,236 +644,57 @@
         <div class="calendar-view">
             <div class="academic-year">2024-2025 Academic Year</div>
             
-            <!-- August -->
-            <div class="month-container" style="animation-delay: 0.2s">
-                <h2 class="month-title">August 2024</h2>
-                <div class="calendar-grid">
-                    <div class="day-header">Sun</div>
-                    <div class="day-header">Mon</div>
-                    <div class="day-header">Tue</div>
-                    <div class="day-header">Wed</div>
-                    <div class="day-header">Thu</div>
-                    <div class="day-header">Fri</div>
-                    <div class="day-header">Sat</div>
-                    
-                    <!-- Empty days -->
-                    <div class="empty-day"></div>
-                    <div class="empty-day"></div>
-                    <div class="empty-day"></div>
-                    <div class="empty-day"></div>
-                    <div class="empty-day"></div>
-                    
-                    <!-- August dates -->
-                    <div class="calendar-day">
-                        <div class="day-number">1</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">2</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">3</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">4</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">5</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">6</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">7</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">8</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">9</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">10</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">11</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">12</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">13</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">14</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">15</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">16</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">17</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">18</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">19</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">20</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">21</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">22</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">23</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">24</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">25</div>
-                    </div>
-                    <div class="calendar-day important-event">
-                        <div class="day-number">26</div>
-                        <div class="event-item">Semester Begins</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">27</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">28</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">29</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">30</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">31</div>
-                    </div>
+            <div class="calendar-controls">
+                <div class="month-year-selector">
+                    <select id="month-select">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                    </select>
+                    <select id="year-select">
+                        <option value="2023">2023</option>
+                        <option value="2024" selected>2024</option>
+                        <option value="2025">2025</option>
+                    </select>
+                </div>
+                <div class="calendar-nav">
+                    <button id="prev-month"><i class="fas fa-chevron-left"></i> Previous</button>
+                    <button id="current-month" class="current-month-btn">Current Month</button>
+                    <button id="next-month">Next <i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
             
-            <!-- September -->
-            <div class="month-container" style="animation-delay: 0.4s">
-                <h2 class="month-title">September 2024</h2>
-                <div class="calendar-grid">
-                    <div class="day-header">Sun</div>
-                    <div class="day-header">Mon</div>
-                    <div class="day-header">Tue</div>
-                    <div class="day-header">Wed</div>
-                    <div class="day-header">Thu</div>
-                    <div class="day-header">Fri</div>
-                    <div class="day-header">Sat</div>
-                    
-                    <div class="calendar-day">
-                        <div class="day-number">1</div>
-                    </div>
-                    <div class="calendar-day holiday-event">
-                        <div class="day-number">2</div>
-                        <div class="event-item">Labor Day (Closed)</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">3</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">4</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">5</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">6</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">7</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">8</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">9</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">10</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">11</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">12</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">13</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">14</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">15</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">16</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">17</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">18</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">19</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">20</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">21</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">22</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">23</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">24</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">25</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">26</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">27</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">28</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">29</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div class="day-number">30</div>
-                    </div>
-                    <div class="empty-day"></div>
-                    <div class="empty-day"></div>
-                    <div class="empty-day"></div>
-                    <div class="empty-day"></div>
-                    <div class="empty-day"></div>
-                </div>
+            <div id="calendar-container">
+                <!-- Calendar will be generated here by JavaScript -->
             </div>
             
-            <!-- More months would continue here... -->
-            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color legend-regular"></div>
+                    <span>Academic Event</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-important"></div>
+                    <span>Important Date</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-holiday"></div>
+                    <span>Holiday</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-exam"></div>
+                    <span>Examination</span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -743,8 +713,8 @@
             </div>
             <div class="footer-section">
                 <h3>Contact</h3>
-                <p><i class="fas fa-map-marker-alt"></i> 123 University Avenue</p>
-                <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                <p><i class="fas fa-map-marker-alt"></i> 123 University Avenue, Islamabad, Pakistan</p>
+                <p><i class="fas fa-phone"></i> (051) 123-4567</p>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
@@ -772,26 +742,218 @@
                 });
             });
 
-            // Animate month containers on scroll
-            const animateOnScroll = function() {
-                const months = document.querySelectorAll('.month-container');
-                const windowHeight = window.innerHeight;
+            // Calendar functionality
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            
+            let currentDate = new Date();
+            let currentMonth = currentDate.getMonth();
+            let currentYear = currentDate.getFullYear();
+            
+            // Pakistan-specific academic events and holidays
+            const academicEvents = {
+                // Spring Semester 2024
+                "2024-1": {
+                    1: [], 5: [], 9: [], 23: [], 30: []
+                },
+                "2024-2": {
+                    5: [{type: "holiday", title: "Kashmir Day"}],
+                    24: [{type: "important", title: "Midterm Exams Begin"}],
+                    28: [{type: "important", title: "Midterm Exams End"}]
+                },
+                "2024-3": {
+                    23: [{type: "holiday", title: "Pakistan Day"}],
+                    25: [{type: "important", title: "Spring Break Begins"}],
+                    31: [{type: "important", title: "Spring Break Ends"}]
+                },
+                "2024-4": {
+                    4: [{type: "holiday", title: "Eid-ul-Fitr Holiday"}],
+                    5: [{type: "holiday", title: "Eid-ul-Fitr Holiday"}],
+                    6: [{type: "holiday", title: "Eid-ul-Fitr Holiday"}],
+                    21: [{type: "important", title: "Final Exams Begin"}],
+                    30: [{type: "important", title: "Final Exams End"}]
+                },
+                "2024-5": {
+                    1: [{type: "holiday", title: "Labour Day"}],
+                    14: [{type: "important", title: "Semester Ends"}],
+                    15: [{type: "important", title: "Summer Break Begins"}]
+                },
                 
-                months.forEach((month, index) => {
-                    const monthPosition = month.getBoundingClientRect().top;
-                    const scrollPosition = windowHeight - 100;
-                    
-                    if (monthPosition < scrollPosition) {
-                        month.style.animation = `fadeInUp 0.6s ease forwards ${index * 0.2}s`;
-                    }
-                });
+                // Fall Semester 2024
+                "2024-8": {
+                    14: [{type: "holiday", title: "Independence Day"}],
+                    26: [{type: "important", title: "Fall Semester Begins"}]
+                },
+                "2024-9": {
+                    6: [{type: "holiday", title: "Defence Day"}],
+                    23: [{type: "important", title: "Midterm Exams Begin"}],
+                    27: [{type: "important", title: "Midterm Exams End"}]
+                },
+                "2024-10": {
+                    9: [{type: "holiday", title: "Iqbal Day"}],
+                    27: [{type: "holiday", title: "Eid Milad-un-Nabi"}]
+                },
+                "2024-11": {
+                    9: [{type: "holiday", title: "Allama Iqbal Day"}],
+                    18: [{type: "important", title: "Final Exams Begin"}],
+                    27: [{type: "important", title: "Final Exams End"}]
+                },
+                "2024-12": {
+                    9: [{type: "holiday", title: "Quaid-e-Azam Day"}],
+                    14: [{type: "important", title: "Semester Ends"}],
+                    25: [{type: "holiday", title: "Quaid-e-Azam & Christmas Day"}]
+                },
+                
+                // Spring Semester 2025
+                "2025-1": {
+                    1: [{type: "holiday", title: "New Year's Day"}],
+                    13: [{type: "important", title: "Spring Semester Begins"}]
+                },
+                "2025-2": {
+                    5: [{type: "holiday", title: "Kashmir Day"}],
+                    24: [{type: "important", title: "Midterm Exams Begin"}],
+                    28: [{type: "important", title: "Midterm Exams End"}]
+                },
+                "2025-3": {
+                    23: [{type: "holiday", title: "Pakistan Day"}],
+                    25: [{type: "important", title: "Spring Break Begins"}],
+                    31: [{type: "important", title: "Spring Break Ends"}]
+                }
             };
             
-            // Run once on load
-            animateOnScroll();
+            // Initialize calendar
+            updateMonthYearSelectors();
+            generateCalendar(currentMonth, currentYear);
             
-            // Run on scroll
-            window.addEventListener('scroll', animateOnScroll);
+            // Event listeners for calendar controls
+            document.getElementById('prev-month').addEventListener('click', function() {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                updateMonthYearSelectors();
+                generateCalendar(currentMonth, currentYear);
+            });
+            
+            document.getElementById('next-month').addEventListener('click', function() {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                updateMonthYearSelectors();
+                generateCalendar(currentMonth, currentYear);
+            });
+            
+            document.getElementById('current-month').addEventListener('click', function() {
+                currentDate = new Date();
+                currentMonth = currentDate.getMonth();
+                currentYear = currentDate.getFullYear();
+                updateMonthYearSelectors();
+                generateCalendar(currentMonth, currentYear);
+            });
+            
+            document.getElementById('month-select').addEventListener('change', function() {
+                currentMonth = parseInt(this.value);
+                generateCalendar(currentMonth, currentYear);
+            });
+            
+            document.getElementById('year-select').addEventListener('change', function() {
+                currentYear = parseInt(this.value);
+                generateCalendar(currentMonth, currentYear);
+            });
+            
+            function updateMonthYearSelectors() {
+                document.getElementById('month-select').value = currentMonth;
+                document.getElementById('year-select').value = currentYear;
+                
+                // Disable prev/next buttons if at min/max years
+                document.getElementById('prev-month').disabled = (currentMonth === 0 && currentYear === 2023);
+                document.getElementById('next-month').disabled = (currentMonth === 11 && currentYear === 2025);
+            }
+            
+            function generateCalendar(month, year) {
+                const calendarContainer = document.getElementById('calendar-container');
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const daysInMonth = lastDay.getDate();
+                const startingDay = firstDay.getDay();
+                
+                // Get events for this month
+                const monthKey = `${year}-${month}`;
+                const monthEvents = academicEvents[monthKey] || {};
+                
+                // Create calendar HTML
+                let calendarHTML = `
+                    <div class="month-container" style="animation-delay: 0.2s">
+                        <h2 class="month-title">${monthNames[month]} ${year}</h2>
+                        <div class="calendar-grid">
+                `;
+                
+                // Add day headers
+                dayNames.forEach(day => {
+                    calendarHTML += `<div class="day-header">${day}</div>`;
+                });
+                
+                // Add empty cells for days before the first day of the month
+                for (let i = 0; i < startingDay; i++) {
+                    calendarHTML += `<div class="empty-day"></div>`;
+                }
+                
+                // Add days of the month
+                const today = new Date();
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dateKey = new Date(year, month, day);
+                    const isToday = dateKey.getDate() === today.getDate() && 
+                                     dateKey.getMonth() === today.getMonth() && 
+                                     dateKey.getFullYear() === today.getFullYear();
+                    
+                    const dayEvents = monthEvents[day] || [];
+                    
+                    calendarHTML += `
+                        <div class="calendar-day ${isToday ? 'today' : ''}">
+                            <div class="day-number">${day}</div>
+                    `;
+                    
+                    // Add events for this day
+                    dayEvents.forEach(event => {
+                        let eventClass = 'event-item';
+                        if (event.type === 'important') eventClass += ' important-event';
+                        else if (event.type === 'holiday') eventClass += ' holiday-event';
+                        else if (event.type === 'exam') eventClass += ' exam-event';
+                        
+                        calendarHTML += `
+                            <div class="${eventClass}">
+                                ${event.title}
+                                <div class="event-tooltip">${event.title}</div>
+                            </div>
+                        `;
+                    });
+                    
+                    calendarHTML += `</div>`;
+                }
+                
+                // Calculate total cells so far
+                const totalCells = startingDay + daysInMonth;
+                const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+                
+                // Add empty cells to complete the last week
+                for (let i = 0; i < remainingCells; i++) {
+                    calendarHTML += `<div class="empty-day"></div>`;
+                }
+                
+                calendarHTML += `
+                        </div>
+                    </div>
+                `;
+                
+                calendarContainer.innerHTML = calendarHTML;
+                
+                // Animate the calendar
+                const monthContainer = calendarContainer.querySelector('.month-container');
+                monthContainer.style.animation = 'fadeInUp 0.6s ease forwards';
+            }
         });
     </script>
 </body>
