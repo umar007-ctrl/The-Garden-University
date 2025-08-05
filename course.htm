@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garden University - Courses</title>
+    <link rel="website icon" type="png" href="Red-Blue-Professional-Badge-Education-Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
+         :root {
             --primary-color: #1a5f1a;
             /* Deep green */
             --secondary-color: #3a7d3a;
@@ -41,11 +42,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 30px;
+            padding: 10px 5%;
             z-index: 999;
-            animation: slideFade 1s ease forwards;
+            animation: slideFade 0.8s ease forwards;
             opacity: 0;
             transform: translateY(-20px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         @keyframes slideFade {
@@ -60,6 +62,7 @@
             align-items: center;
             gap: 15px;
             cursor: pointer;
+            margin-right: 40px; /* Added space between logo and nav items */
         }
 
         .logo-area img {
@@ -76,8 +79,9 @@
         nav ul {
             list-style: none;
             display: flex;
-            gap: 20px;
+            gap: 35px; /* Increased space between nav items */
             align-items: center;
+            margin-left: auto; /* Push nav items to the right */
         }
 
         nav ul li {
@@ -89,11 +93,14 @@
             color: white;
             font-size: 16px;
             transition: color 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
         }
 
         nav ul li a:hover,
         nav ul li a.active {
             color: #f89e22;
+            background-color: rgba(248, 158, 34, 0.1);
         }
 
         .dropdown {
@@ -102,10 +109,17 @@
             font-size: 16px;
             display: flex;
             align-items: center;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown:hover {
+            color: #f89e22;
+            background-color: rgba(248, 158, 34, 0.1);
         }
 
         .dropdown::after {
-            content: " ▼";
             font-size: 12px;
             margin-left: 5px;
             transition: transform 0.3s;
@@ -117,22 +131,28 @@
             top: 100%;
             left: 0;
             background-color: #1f313d;
-            padding: 10px;
+            padding: 10px 0;
             border-radius: 4px;
-            min-width: 150px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 1000;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
         }
 
         .dropdown-content a {
             display: block;
-            padding: 8px 12px;
+            padding: 10px 20px;
             color: white;
             text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         .dropdown-content a:hover {
             background-color: #2b4755;
+            color: #f89e22;
+            padding-left: 25px;
         }
 
         .show-dropdown .dropdown::after {
@@ -141,11 +161,15 @@
 
         .show-dropdown .dropdown-content {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .dropdown-toggle :hover {
-            color: #f89e22;
-            transition: color 0.3s ease;
+        /* Hover effect for dropdown */
+        .dropdown-toggle:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Main Content */
@@ -154,12 +178,36 @@
             max-width: 1400px;
             margin: 2rem auto;
             padding: 0 5%;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Sidebar */
         .sidebar {
             width: 250px;
             margin-right: 2rem;
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .search-box {
@@ -174,6 +222,14 @@
             border-radius: 30px;
             font-size: 0.9rem;
             padding-left: 40px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #f89e22;
+            box-shadow: 0 2px 12px rgba(248, 158, 34, 0.2);
         }
 
         .search-box i {
@@ -182,6 +238,11 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-light);
+            transition: color 0.3s;
+        }
+
+        .search-box input:focus + i {
+            color: #f89e22;
         }
 
         .categories {
@@ -189,12 +250,30 @@
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .categories:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
         .categories h3 {
             font-size: 1.2rem;
             margin-bottom: 1rem;
             color: #2b4755;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .categories h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #f89e22;
         }
 
         .categories ul {
@@ -203,6 +282,20 @@
 
         .categories li {
             margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .categories li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: #f89e22;
+            border-radius: 50%;
         }
 
         .categories a {
@@ -211,11 +304,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: color 0.3s;
+            transition: all 0.3s;
         }
 
         .categories a:hover {
             color: #cf7b10;
+            transform: translateX(5px);
         }
 
         .categories span {
@@ -224,11 +318,29 @@
             padding: 0.2rem 0.5rem;
             border-radius: 20px;
             font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .categories a:hover span {
+            background-color: #2b4755;
+            transform: scale(1.1);
         }
 
         /* Course Grid */
         .course-content {
             flex: 1;
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .page-title {
@@ -237,6 +349,18 @@
             color: #2b4755;
             position: relative;
             padding-bottom: 0.5rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .page-title::after {
@@ -247,6 +371,16 @@
             width: 60px;
             height: 3px;
             background-color: #f89e22;
+            animation: expandWidth 1s ease forwards;
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0;
+            }
+            to {
+                width: 60px;
+            }
         }
 
         .course-grid {
@@ -260,13 +394,16 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border-top: 3px solid #f89e22;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+            animation-delay: calc(var(--delay) * 0.1s);
         }
 
         .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
         .course-image {
@@ -275,6 +412,11 @@
             background-size: cover;
             background-position: center;
             position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .course-card:hover .course-image {
+            transform: scale(1.05);
         }
 
         .course-image::after {
@@ -285,22 +427,40 @@
             right: 0;
             bottom: 0;
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+            transition: all 0.5s ease;
+        }
+
+        .course-card:hover .course-image::after {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
         }
 
         .course-details {
             padding: 1.5rem;
+            position: relative;
+            background-color: white;
+            z-index: 1;
         }
 
         .course-date {
             font-size: 0.8rem;
             color: var(--text-light);
             margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .course-card:hover .course-date {
+            color: #f89e22;
         }
 
         .course-title {
             font-size: 1.2rem;
             margin-bottom: 1rem;
             color: #1f313d;
+            transition: color 0.3s;
+        }
+
+        .course-card:hover .course-title {
+            color: #f89e22;
         }
 
         .course-meta {
@@ -314,6 +474,11 @@
         .course-meta span {
             display: flex;
             align-items: center;
+            transition: color 0.3s;
+        }
+
+        .course-card:hover .course-meta span {
+            color: #1f313d;
         }
 
         .course-meta i {
@@ -325,6 +490,11 @@
             display: flex;
             align-items: center;
             margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover .course-instructor {
+            transform: translateX(5px);
         }
 
         .instructor-avatar {
@@ -334,10 +504,22 @@
             background-color: #ddd;
             margin-right: 0.5rem;
             background-size: cover;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .course-card:hover .instructor-avatar {
+            transform: scale(1.1);
+            border-color: #f89e22;
         }
 
         .instructor-name {
             font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .course-card:hover .instructor-name {
+            color: #2b4755;
         }
 
         .course-price {
@@ -345,6 +527,12 @@
             font-weight: 700;
             color: #2b4755;
             text-align: right;
+            transition: all 0.3s;
+        }
+
+        .course-card:hover .course-price {
+            color: #f89e22;
+            transform: scale(1.05);
         }
 
         .free-badge {
@@ -354,6 +542,12 @@
             border-radius: 20px;
             font-size: 0.8rem;
             display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .course-card:hover .free-badge {
+            background-color: #f89e22;
+            transform: scale(1.1);
         }
 
         /* Responsive Design */
@@ -445,14 +639,14 @@
             <span>Garden University</span>
         </div>
         <ul>
-            <li class="dropdown-toggle" onclick="toggleDropdown(this)">
+            <li class="dropdown-toggle">
                 <div class="dropdown">Academic</div>
                 <div class="dropdown-content">
                     <a href="#">Course</a>
                     <a href="form.html">Admission Form</a>
                 </div>
             </li>
-            <li class="dropdown-toggle" onclick="toggleDropdown(this)">
+            <li class="dropdown-toggle">
                 <div class="dropdown">Student</div>
                 <div class="dropdown-content">
                     <a href="signup.html">Login</a>
@@ -473,8 +667,7 @@
             <div class="categories">
                 <h3>Categories</h3>
                 <ul>
-                    <li><a href="#">Admission <span>6</span></a></li>
-                    <li><a href="#">Alumni <span>11</span></a></li>
+                    <li><a href="form.html">Admission <span>6</span></a></li>
                     <li><a href="#">Career <span>9</span></a></li>
                     <li><a href="#">Research <span>12</span></a></li>
                     <li><a href="#">Spotlight <span>2</span></a></li>
@@ -488,7 +681,7 @@
 
             <div class="course-grid">
                 <!-- Course Card 1 -->
-                <div class="course-card">
+                <div class="course-card" style="--delay: 1">
                     <div class="course-image"
                         style="background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');">
                     </div>
@@ -510,7 +703,7 @@
                 </div>
 
                 <!-- Course Card 2 -->
-                <div class="course-card">
+                <div class="course-card" style="--delay: 2">
                     <div class="course-image"
                         style="background-image: url('container-4197259_1280.jpg');">
                     </div>
@@ -532,7 +725,7 @@
                 </div>
 
                 <!-- Course Card 3 -->
-                <div class="course-card">
+                <div class="course-card" style="--delay: 3">
                     <div class="course-image"
                         style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');">
                     </div>
@@ -550,12 +743,12 @@
                             </div>
                             <span class="instructor-name">With Usama Mehmood</span>
                         </div>
-                        <div class="course-price">$49.99</div>
+                        <div class="course-price">21,000 Rs</div>
                     </div>
                 </div>
 
                 <!-- Course Card 4 -->
-                <div class="course-card">
+                <div class="course-card" style="--delay: 4">
                     <div class="course-image"
                         style="background-image: url('programming-1873854_1280.png');">
                     </div>
@@ -572,12 +765,12 @@
                                 style="background-image: url('https://www.aku.edu/news/PublishingImages/Professor-Zulfiqar-A-Bhutta-web-news.jpg');"></div>
                             <span class="instructor-name">With Naveed A. Malik</span>
                         </div>
-                        <div class="course-price">$59.99</div>
+                        <div class="course-price">30,000 Rs</div>
                     </div>
                 </div>
 
                 <!-- Course Card 5 -->
-                <div class="course-card">
+                <div class="course-card" style="--delay: 5">
                     <div class="course-image"
                         style="background-image: url('robot-7768527_1280.jpg');">
                     </div>
@@ -594,11 +787,11 @@
                                 style="background-image: url('https://media.licdn.com/dms/image/v2/C4D22AQHw91xT13oY1g/feedshare-shrink_800/feedshare-shrink_800/0/1628412974673?e=2147483647&v=beta&t=6abdh9dPPNKhX4Szt7xiWD6DCRoyTwaSS_6qQskGkxc');"></div>
                             <span class="instructor-name">With Saira Bano</span>
                         </div>
-                        <div class="course-price">$79.99</div>
+                        <div class="course-price">75,000 RS</div>
                     </div>
                 </div>
                 <!-- Course Card 6 -->
-                <div class="course-card">
+                <div class="course-card" style="--delay: 6">
                     <div class="course-image"
                         style="background-image: url('network-2402637_1280.jpg');">
                     </div>
@@ -615,11 +808,11 @@
                                 style="background-image: url('mcy.jpg');"></div>
                             <span class="instructor-name">With Muhammad Fahad Khan</span>
                         </div>
-                        <div class="course-price">$80.99</div>
+                        <div class="course-price">60,000 Rs</div>
                     </div>
                 </div>
                 <!-- Course Card 7 -->
-                <div class="course-card">
+                <div class="course-card" style="--delay: 7">
                     <div class="course-image"
                         style="background-image: url('analysis-4402809_1280.jpg');">
                     </div>
@@ -636,11 +829,11 @@
                                 style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHrfDxe3tCLYnzFr_yrbgHwrSKiw_j1e11tg&s');"></div>
                             <span class="instructor-name">With Dr. Anwar Nasim</span>
                         </div>
-                        <div class="course-price">$80.99</div>
+                        <div class="course-price">35,000 Rs</div>
                     </div>
                 </div>
                 <!-- Course Card 8 -->
-                <div class="course-card">
+                <div class="course-card" style="--delay: 8">
                     <div class="course-image"
                         style="background-image: url('engineer-4941329_1280.jpg');">
                     </div>
@@ -657,11 +850,11 @@
                                 style="background-image: url('https://pcl.edu.pk/wp-content/uploads/2016/01/aamnah_akhtar_img.jpg');"></div>
                             <span class="instructor-name">With  Bushra Mirza</span>
                         </div>
-                        <div class="course-price">$75.99</div>
+                        <div class="course-price">50,000 Rs</div>
                     </div>
                 </div>
                 <!-- Course Card 9 -->
-                <div class="course-card">
+                <div class="course-card" style="--delay: 9">
                     <div class="course-image"
                         style="background-image: url('engine-71267_1280.jpg');">
                     </div>
@@ -678,12 +871,12 @@
                                 style="background-image: url('female\ prof.webp');"></div>
                             <span class="instructor-name">With Huma Khalil</span>
                         </div>
-                        <div class="course-price">$65.99</div>
+                        <div class="course-price">50,000 Rs</div>
                     </div>
                 </div>
 
                 <!-- Course Card 10 -->
-                <div class="course-card">
+                <div class="course-card" style="--delay: 10">
                     <div class="course-image"
                         style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');">
                     </div>
@@ -701,7 +894,7 @@
                             </div>
                             <span class="instructor-name">With Dr. Asghar Qadir</span>
                         </div>
-                        <div class="course-price">$69.99</div>
+                        <div class="course-price">50,000 Rs</div>
                     </div>
                 </div>
             </div>
@@ -711,10 +904,18 @@
     <script>
         // JavaScript for interactive features
         document.addEventListener('DOMContentLoaded', function () {
-            // Toggle dropdown function
-            function toggleDropdown(element) {
-                element.classList.toggle('show-dropdown');
-            }
+            // Dropdown functionality
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('mouseenter', function() {
+                    this.classList.add('show-dropdown');
+                });
+                
+                toggle.addEventListener('mouseleave', function() {
+                    this.classList.remove('show-dropdown');
+                });
+            });
             
             // Search functionality
             const searchInput = document.querySelector('.search-box input');
@@ -753,14 +954,26 @@
                 });
             });
 
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.dropdown-toggle')) {
-                    document.querySelectorAll('.dropdown-toggle').forEach(el => {
-                        el.classList.remove('show-dropdown');
-                    });
-                }
-            });
+            // Animate course cards on scroll
+            const animateOnScroll = function() {
+                const courseCards = document.querySelectorAll('.course-card');
+                const windowHeight = window.innerHeight;
+                
+                courseCards.forEach(card => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const scrollPosition = windowHeight - 100;
+                    
+                    if (cardPosition < scrollPosition) {
+                        card.style.animation = `fadeInUp 0.6s ease forwards ${card.style.getPropertyValue('--delay') * 0.1}s`;
+                    }
+                });
+            };
+            
+            // Run once on load
+            animateOnScroll();
+            
+            // Run on scroll
+            window.addEventListener('scroll', animateOnScroll);
         });
     </script>
 </body>
