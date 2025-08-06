@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Garden University</title>
   <link rel="website icon" type="png" href="Red-Blue-Professional-Badge-Education-Logo.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,27 +20,26 @@
       background-color: #f4f4f4;
     }
 
-    /* Navbar */
+    /* Navbar Styles */
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      background: #1f313d;
+      background: rgba(31, 49, 61, 0.9); /* Transparent version of #1f313d */
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 30px;
+      padding: 10px 5%;
       z-index: 999;
-      animation: slideFade 1s ease forwards;
-      opacity: 0;
-      transform: translateY(-20px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px); /* Creates the frosted glass effect */
+      -webkit-backdrop-filter: blur(10px);
+      transition: all 0.5s ease;
     }
 
-    @keyframes slideFade {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    nav.scrolled {
+      background: rgba(31, 49, 61, 0.98);
+      padding: 5px 5%;
     }
 
     .logo-area {
@@ -48,11 +47,21 @@
       align-items: center;
       gap: 15px;
       cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-area:hover {
+      transform: scale(1.03);
     }
 
     .logo-area img {
       height: 70px;
       width: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-area:hover img {
+      transform: rotate(-5deg);
     }
 
     .logo-area span {
@@ -61,102 +70,96 @@
       font-weight: bold;
     }
 
-    nav ul {
-      list-style: none;
+    .nav-links {
       display: flex;
-      gap: 20px;
       align-items: center;
+      gap: 0;
     }
 
-    nav ul li {
+    .nav-links > li {
       position: relative;
+      list-style: none;
     }
 
-    nav ul li a {
+    .nav-links > li > a {
       text-decoration: none;
       color: white;
       font-size: 16px;
-      transition: color 0.3s ease;
+      font-weight: 500;
+      padding: 15px 20px;
+      display: block;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    nav ul li a:hover,
-    nav ul li a.active {
+    .nav-links > li > a::after {
+      content: '';
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      width: 0;
+      height: 2px;
+      background-color: #f89e22;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links > li > a:hover::after,
+    .nav-links > li > a.active::after {
+      width: calc(100% - 40px);
+    }
+
+    .nav-links > li > a:hover,
+    .nav-links > li > a.active {
       color: #f89e22;
     }
 
-    /* Dropdown Icon */
-    .dropdown {
-      cursor: pointer;
-      color: white;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-    }
-
-    .dropdown::after {
-      content: " ▼";
-      font-size: 12px;
-      margin-left: 5px;
-      transition: transform 0.3s;
-    }
-
+    /* Dropdown Styles */
     .dropdown-content {
-      display: none;
       position: absolute;
       top: 100%;
       left: 0;
-      background-color: #1f313d;
-      padding: 10px;
-      border-radius: 4px;
-      min-width: 150px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      background: rgba(31, 49, 61, 0.95);
+      width: 200px;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
       z-index: 1000;
+      border-radius: 0 0 5px 5px;
+      overflow: hidden;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
     }
 
     .dropdown-content a {
       display: block;
-      padding: 8px 12px;
+      padding: 12px 20px;
       color: white;
       text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
     }
 
     .dropdown-content a:hover {
-      background-color: #2b4755;
+      background-color: rgba(248, 158, 34, 0.2);
+      color: #f89e22;
+      padding-left: 25px;
     }
 
-    .show-dropdown .dropdown::after {
-      transform: rotate(180deg);
+    .nav-links > li:hover .dropdown-content {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
 
-    .show-dropdown .dropdown-content {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .dropdown-toggle :hover{
-        color: #f89e22;
-        transition: color 0.3s ease
-    }
-    
     /* Video Section */
     .video-section {
-      margin-top: 80px; /* Space for navbar */
+      margin-top: 0;
       width: 100%;
       height: 100vh;
       overflow: hidden;
       position: relative;
-      transition: all 0.5s ease;
-    }
-
-    .video-section.shrink {
-      height: 0;
-      opacity: 0;
-      pointer-events: none;
     }
 
     .video-section video {
@@ -199,6 +202,9 @@
       border-top: 5px solid #f89e22;
       max-height: 500px;
       overflow-y: auto;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.7s forwards;
     }
 
     .announcement-box::-webkit-scrollbar {
@@ -230,6 +236,11 @@
       margin-bottom: 20px;
       padding-bottom: 20px;
       border-bottom: 1px solid #eee;
+      transition: transform 0.3s ease;
+    }
+
+    .announcement-item:hover {
+      transform: translateX(5px);
     }
 
     .announcement-item:last-child {
@@ -263,6 +274,9 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       position: relative;
       height: 400px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.9s forwards;
     }
 
     .slide {
@@ -289,6 +303,14 @@
       padding: 30px;
       background: linear-gradient(to top, rgba(31,49,61,0.9), transparent);
       color: white;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.8s ease 0.5s;
+    }
+
+    .slide.active .slide-content {
+      transform: translateY(0);
+      opacity: 1;
     }
 
     .slide-content h3 {
@@ -314,6 +336,7 @@
     .slide-btn:hover {
       background-color: #e08b1a;
       transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
     /* Features Section */
@@ -347,6 +370,11 @@
       font-size: 2.5rem;
       color: #f89e22;
       margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.2);
     }
 
     .feature-card h3 {
@@ -366,6 +394,15 @@
       padding: 60px 20px;
       margin-bottom: 50px;
       border-radius: 10px;
+      transform: scale(0.95);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 1s forwards, scaleIn 0.8s ease 1s forwards;
+    }
+
+    @keyframes scaleIn {
+      to {
+        transform: scale(1);
+      }
     }
 
     .stats-container {
@@ -379,13 +416,27 @@
 
     .stat-item {
       color: white;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
     }
+
+    .stat-item:nth-child(1) { animation-delay: 1.2s; }
+    .stat-item:nth-child(2) { animation-delay: 1.4s; }
+    .stat-item:nth-child(3) { animation-delay: 1.6s; }
+    .stat-item:nth-child(4) { animation-delay: 1.8s; }
 
     .stat-number {
       font-size: 3rem;
       font-weight: bold;
       color: #f89e22;
       margin-bottom: 10px;
+      transition: all 0.5s ease;
+    }
+
+    .stat-item:hover .stat-number {
+      transform: scale(1.1);
+      text-shadow: 0 0 10px rgba(248, 158, 34, 0.5);
     }
 
     .stat-label {
@@ -399,11 +450,16 @@
       margin-bottom: 50px;
       border-radius: 10px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 1s forwards;
     }
 
     .section-header {
       text-align: center;
       margin-bottom: 40px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 1.2s forwards;
     }
 
     .section-header h2 {
@@ -429,6 +485,18 @@
       padding: 25px;
       border-radius: 8px;
       position: relative;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-card:nth-child(1) { animation: fadeInUp 0.8s ease 1.4s forwards; }
+    .testimonial-card:nth-child(2) { animation: fadeInUp 0.8s ease 1.6s forwards; }
+    .testimonial-card:nth-child(3) { animation: fadeInUp 0.8s ease 1.8s forwards; }
+
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
 
     .testimonial-card::before {
@@ -461,6 +529,12 @@
       border-radius: 50%;
       margin-right: 15px;
       object-fit: cover;
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover .author-avatar {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 3px #f89e22;
     }
 
     .author-info h4 {
@@ -480,6 +554,8 @@
       padding: 30px;
       margin-bottom: 50px;
       color: white;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 1s forwards;
     }
 
     .quick-links h2 {
@@ -505,18 +581,34 @@
 
     .link-group li {
       margin-bottom: 10px;
+      transform: translateX(-10px);
+      opacity: 0;
+      animation: fadeInRight 0.5s ease forwards;
     }
+
+    @keyframes fadeInRight {
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .link-group li:nth-child(1) { animation-delay: 1.2s; }
+    .link-group li:nth-child(2) { animation-delay: 1.3s; }
+    .link-group li:nth-child(3) { animation-delay: 1.4s; }
+    .link-group li:nth-child(4) { animation-delay: 1.5s; }
 
     .link-group a {
       color: white;
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
     }
 
     .link-group a:hover {
       color: #f89e22;
+      transform: translateX(5px);
     }
 
     .link-group i {
@@ -527,6 +619,8 @@
     /* Events Section */
     .events-section {
       margin-bottom: 50px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 1s forwards;
     }
 
     .events-container {
@@ -540,12 +634,29 @@
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .event-card:nth-child(1) { animation: fadeInUp 0.8s ease 1.2s forwards; }
+    .event-card:nth-child(2) { animation: fadeInUp 0.8s ease 1.4s forwards; }
+    .event-card:nth-child(3) { animation: fadeInUp 0.8s ease 1.6s forwards; }
+
+    .event-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
     }
 
     .event-image {
       height: 180px;
       background-size: cover;
       background-position: center;
+      transition: all 0.5s ease;
+    }
+
+    .event-card:hover .event-image {
+      transform: scale(1.1);
     }
 
     .event-details {
@@ -580,11 +691,16 @@
       font-weight: 500;
       display: flex;
       align-items: center;
+      transition: all 0.3s ease;
     }
 
     .event-link i {
       margin-left: 5px;
       transition: transform 0.3s;
+    }
+
+    .event-link:hover {
+      color: #e08b1a;
     }
 
     .event-link:hover i {
@@ -596,6 +712,8 @@
       background-color: #1f313d;
       color: white;
       padding: 40px 20px 20px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 1s forwards;
     }
 
     .footer-container {
@@ -610,7 +728,14 @@
       flex: 1;
       min-width: 250px;
       margin-bottom: 20px;
+      transform: translateY(20px);
+      opacity: 0;
     }
+
+    .footer-section:nth-child(1) { animation: fadeInUp 0.8s ease 1.2s forwards; }
+    .footer-section:nth-child(2) { animation: fadeInUp 0.8s ease 1.3s forwards; }
+    .footer-section:nth-child(3) { animation: fadeInUp 0.8s ease 1.4s forwards; }
+    .footer-section:nth-child(4) { animation: fadeInUp 0.8s ease 1.5s forwards; }
 
     .footer-section h3 {
       color: #f89e22;
@@ -620,10 +745,20 @@
     .footer-logo {
       height: 70px;
       margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .footer-logo:hover {
+      transform: rotate(-5deg) scale(1.1);
     }
 
     iframe {
       border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    iframe:hover {
+      box-shadow: 0 0 15px rgba(248, 158, 34, 0.5);
     }
 
     .social-links {
@@ -635,11 +770,12 @@
     .social-links a {
       color: white;
       font-size: 1.5rem;
-      transition: color 0.3s;
+      transition: all 0.3s;
     }
 
     .social-links a:hover {
       color: #f89e22;
+      transform: translateY(-5px) scale(1.2);
     }
 
     .footer-bottom {
@@ -653,10 +789,12 @@
       color: white;
       margin-right: 15px;
       text-decoration: none;
+      transition: all 0.3s;
     }
 
     .footer-bottom a:hover {
       color: #f89e22;
+      text-decoration: underline;
     }
 
     /* Responsive */
@@ -673,25 +811,37 @@
     @media (max-width: 768px) {
       nav {
         flex-direction: column;
-        align-items: flex-start;
         padding: 15px;
       }
 
-      nav ul {
+      .nav-links {
         flex-direction: column;
         width: 100%;
-        background: #1f313d;
-        padding: 10px 0;
+        margin-top: 15px;
       }
 
-      nav ul li {
-        padding: 10px 20px;
+      .nav-links > li {
+        width: 100%;
+      }
+
+      .nav-links > li > a {
+        padding: 12px 0;
       }
 
       .dropdown-content {
         position: static;
+        width: 100%;
         box-shadow: none;
-        padding-left: 20px;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+
+      .nav-links > li:hover .dropdown-content {
+        max-height: 500px;
       }
 
       .footer-container {
@@ -713,49 +863,73 @@
       .stats-container {
         grid-template-columns: 1fr;
       }
+      
+      .logo-area span {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav>
+<nav id="mainNav">
   <div class="logo-area" onclick="location.href='index.html'">
     <img src="Red-Blue-Professional-Badge-Education-Logo.png" alt="Logo" />
     <span>|</span>
     <span>Garden University</span>
   </div>
-  <ul>
-    <li class="dropdown-toggle" onclick="toggleDropdown(this)">
-    <div class="dropdown">Academic</div>
-    <div class="dropdown-content">
-       <a href="course.htm">Course</a> 
-       <a href="tuition&fees.html">Tuition & Fees</a> 
-       <a href="form.html">Admission Form</a>
-    </div>
-    <li class="dropdown-toggle" onclick="toggleDropdown(this)">
-    <div class="dropdown">Campus Life</div>
-    <div class="dropdown-content">
-       <a href="book a tour.html">Book a Tour</a> 
-       <a href="libirary.html">Library</a> 
-       <a href="museume.html">Museum</a> 
-    </div>
-    <li class="dropdown-toggle" onclick="toggleDropdown(this)">
-    <div class="dropdown">Student</div>
-    <div class="dropdown-content">
-       <a href="signup.html">Login</a> 
-       <a href="academic celender.html">Academic Celender</a>
-       <a href="housing.html">Housing</a>
-    </div>
-    <li><a href="about us.html">About Us</a></li>
-    <li><a href="contact us.html">Contact Us</a></li>
+  
+  <ul class="nav-links">
+    <li>
+    
+    </li>
+    <li>
+      <a href="course.htm">Programs</a>
+    </li>
+    <li>
+      <a href="form.html">Admissions</a>
+    </li>
+    <li>
+      <a href="housing.html">Housing</a>
+    </li>
+    <li>
+      <a href="#">Campus Life</a>
+      <div class="dropdown-content">
+        <a href="book a tour.html">Book a Tour</a>
+        <a href="libirary.html">Library</a>
+        <a href="museume.html">Museum</a>
+      </div>
+    </li>
+    <li>
+      <a href="#">Academic</a>
+      <div class="dropdown-content">
+        <a href="course.htm">Course</a>
+        <a href="tuition&fees.html">Tuition & Fees</a>
+        <a href="form.html">Admission Form</a>
+        <a href="how to apply.html">How to apply</a>
+      </div>
+      <li>
+      <a href="#">Student Protal</a>
+      <div class="dropdown-content">
+        <a href="signup.html">Login in/sign up</a>
+         <a href="academic celender.html">Academic Celander</a>
+      </div>
+    </li>
+    </li>
+    <li>
+      <a href="contact us.html">Contact us</a>
+    </li>
+    <li>
+      <a href="about us.html">About us</a>
+    </li>
   </ul>
 </nav>
 
 <!-- Video Section -->
 <section class="video-section" id="videoSection">
   <video autoplay muted loop playsinline>
-    <source src="garden.mp4.mp4" type="video/mp4">
+    <source src="Welcome to Cambridge! - Cambridge University (1080p, h264).mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </section>
@@ -1027,7 +1201,6 @@
       <p><strong>UAN:</strong> +92-42-1234-567890</p>
       <p><strong>Admissions:</strong> +92-42-1234-567891</p>
       <p><strong>Email:</strong> info@gardenuniversity.edu.pk</p>
-     
     </div>
 
     <!-- Hours -->
@@ -1036,7 +1209,6 @@
       <p><strong>Monday-Friday:</strong> 8:00am - 6:00pm</p>
       <p><strong>Saturday:</strong> 9:00am - 1:00pm</p>
       <p><strong>Sunday:</strong> Closed</p>
-      
     </div>
 
     <!-- Map -->
@@ -1064,27 +1236,14 @@
   </div>
 </footer>
 
-<!-- Script -->
 <script>
-  // Dropdown functionality
-  function toggleDropdown(el) {
-    // Close all other dropdowns first
-    document.querySelectorAll('.dropdown-toggle').forEach(dropdown => {
-      if (dropdown !== el) {
-        dropdown.classList.remove('show-dropdown');
-      }
-    });
-    
-    // Toggle current dropdown
-    el.classList.toggle('show-dropdown');
-  }
-  
-  // Close dropdowns when clicking outside
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.dropdown-toggle')) {
-      document.querySelectorAll('.dropdown-toggle').forEach(el => {
-        el.classList.remove('show-dropdown');
-      });
+  // Navbar scroll effect
+  window.addEventListener('scroll', function() {
+    const nav = document.getElementById('mainNav');
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
     }
   });
 
@@ -1106,24 +1265,12 @@
   
   // Change slide every 5 seconds
   setInterval(nextSlide, 5000);
-  
-  // Video section scroll effect
-  window.addEventListener('scroll', function() {
-    const videoSection = document.getElementById('videoSection');
-    const scrollPosition = window.scrollY;
-    
-    if (scrollPosition > 100) {
-      videoSection.classList.add('shrink');
-    } else {
-      videoSection.classList.remove('shrink');
-    }
-  });
-  
+
   // Animation on scroll
-  const animateElements = document.querySelectorAll('.feature-card, .welcome-section, .section-header, .testimonial-card, .event-card');
-  
-  function checkAnimation() {
-    animateElements.forEach(element => {
+  function animateOnScroll() {
+    const elements = document.querySelectorAll('.feature-card, .section-header, .testimonial-card, .event-card, .footer-section');
+    
+    elements.forEach(element => {
       const elementPosition = element.getBoundingClientRect().top;
       const screenPosition = window.innerHeight / 1.2;
       
@@ -1134,10 +1281,9 @@
   }
   
   // Run on load and scroll
-  window.addEventListener('load', checkAnimation);
-  window.addEventListener('scroll', checkAnimation);
+  window.addEventListener('load', animateOnScroll);
+  window.addEventListener('scroll', animateOnScroll);
 </script>
 
 </body>
 </html>
-
